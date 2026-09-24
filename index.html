@@ -55,6 +55,7 @@
         .territory-selector { background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 16px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
         .territory-label { font-size: 0.7rem; font-family: var(--font-mono); color: var(--accent); text-transform: uppercase; }
         .territory-select { width: 100%; background: rgba(7, 10, 20, 0.8); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 8px; font-family: var(--font-main); font-size: 0.9rem; outline: none; }
+        .territory-select option:disabled { color: var(--text-secondary); background: #070a14; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
         .stat-box { background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 8px; text-align: center; }
@@ -134,8 +135,8 @@
             <div class="territory-label">📍 Sélection du secteur d'expérimentation</div>
             <select class="territory-select" id="select-territory">
                 <option value="rians">Rians (18220) — Mission Complète & Détours</option>
-                <option value="bourges">Bourges (18000) — Infiltration Cathédrale & Marais</option>
-                <option value="vierzon">Vierzon (18100) — Les Canaux Secrets</option>
+                <option value="bourges" disabled>Bourges (18000) — Bientôt disponible</option>
+                <option value="vierzon" disabled>Vierzon (18100) — Bientôt disponible</option>
             </select>
         </div>
 
@@ -266,7 +267,7 @@
         };
 
         let currentTerritoryKey = 'rians';
-        let mission = missionsTerritoires[rians];
+        let mission = missionsTerritoires[currentTerritoryKey];
 
         let state = { etape: 0, startTime: null, timerInterval: null, hintsUsed: 0, simulatedGps: false, distance: 340 };
 
