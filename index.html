@@ -167,7 +167,7 @@
         </div>
     </div>
 
-    <!-- MODAL CONTACT B2B -->
+    <!-- MODAL CONTACT B2B AVEC CHAMP MESSAGE -->
     <div id="modal-contact" class="modal-overlay hidden">
         <div class="modal-card">
             <div class="modal-header">
@@ -175,14 +175,22 @@
                 <button class="close-btn" onclick="closeContactModal()">&times;</button>
             </div>
             <p style="font-size:0.8rem; color:var(--text-secondary)">Recevez une proposition de parcours scénarisé directement sur votre boîte mail.</p>
+            
             <div class="form-group">
                 <label class="form-label">Nom de la Collectivité / Office de Tourisme</label>
                 <input type="text" id="demo-org" placeholder="ex: Mairie de Rians" class="form-input">
             </div>
+
             <div class="form-group">
                 <label class="form-label">Votre Adresse Email</label>
                 <input type="email" id="demo-email" value="enitas.diffusion@gmail.com" class="form-input">
             </div>
+
+            <div class="form-group">
+                <label class="form-label">Message / Précisions sur votre projet</label>
+                <textarea id="demo-message" placeholder="ex: Nous souhaitons un parcours de 6 étapes pour notre centre-ville historique..." class="form-input" style="height: 80px; resize: none; font-family: var(--font-main);"></textarea>
+            </div>
+
             <button class="btn-primary" onclick="submitDemoRequest()">
                 Envoyer la Demande (Envoi Direct)
             </button>
@@ -275,9 +283,12 @@
             } catch (e) { showToast("Erreur de publication", false); }
         }
 
+        // ENVOI FORMULAIRE AVEC LE MESSAGE PERSONNALISÉ
         async function submitDemoRequest() {
             const org = document.getElementById('demo-org').value.trim();
             const emailInput = document.getElementById('demo-email').value.trim();
+            const messageInput = document.getElementById('demo-message').value.trim();
+            
             if(!org) { alert("Veuillez renseigner le nom de la collectivité."); return; }
 
             showToast("Envoi de la demande en cours...");
@@ -285,7 +296,11 @@
                 const response = await fetch(FORMSPREE_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ organization: org, email: emailInput, message: `Demande d'étude territoriale pour ${org}` })
+                    body: JSON.stringify({ 
+                        organization: org, 
+                        email: emailInput, 
+                        message: messageInput || `Demande d'étude territoriale pour ${org} sans message additionnel.` 
+                    })
                 });
 
                 if (response.ok) {
@@ -386,7 +401,6 @@
             document.getElementById('main-btn').innerText = "Valider l'Étape";
         }
 
-        // VERIFICATION DE LA PROXIMITÉ (MAX 30 MÈTRES)
         function checkProximity(event) {
             if (state.distance > 30) {
                 event.target.pause();
@@ -400,9 +414,7 @@
 
         function toggleSimulatedGps() {
             state.simulatedGps = !state.simulatedGps;
-            // Si simulé ON, on passe à 12m (portée valide), sinon on revient à 340m (trop loin)
             state.distance = state.simulatedGps ? 12 : 340;
-            
             document.getElementById('gps-sim-status').innerText = state.simulatedGps ? "ON (12m)" : "OFF (340m)";
             document.getElementById('metric-gps').innerText = `${state.distance} m`;
         }
