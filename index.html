@@ -25,13 +25,7 @@
             --font-mono: "SF Mono", "Roboto Mono", monospace;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--bg-dark);
@@ -45,751 +39,131 @@
             overflow-x: hidden;
         }
 
-        /* VUES */
-        .view {
-            width: 100%;
-            max-width: 480px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            transition: opacity 0.3s ease;
-        }
+        .view { width: 100%; max-width: 480px; min-height: 100vh; display: flex; flex-direction: column; padding: 20px; transition: opacity 0.3s ease; }
+        .hidden { display: none !important; }
 
-        .hidden {
-            display: none !important;
-        }
+        .landing-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 24px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+        .brand-logo { font-size: 1rem; font-weight: 800; letter-spacing: 1.5px; background: linear-gradient(135deg, #fff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 8px; }
+        .b2b-badge { font-size: 0.65rem; font-family: var(--font-mono); background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); padding: 4px 8px; border-radius: 99px; font-weight: 700; }
 
-        /* LANDING PAGE STYLES */
-        .landing-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0 24px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 24px;
-        }
+        .hero-section { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+        .hero-tag { align-self: flex-start; font-size: 0.7rem; font-family: var(--font-mono); color: var(--accent); background: rgba(37, 99, 235, 0.15); border: 1px solid rgba(37, 99, 235, 0.3); padding: 6px 12px; border-radius: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-title { font-size: 2.1rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; }
+        .hero-title span { background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
 
-        .brand-logo {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .territory-selector { background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 16px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .territory-label { font-size: 0.7rem; font-family: var(--font-mono); color: var(--accent); text-transform: uppercase; }
+        .territory-select { width: 100%; background: rgba(7, 10, 20, 0.8); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 8px; font-family: var(--font-main); font-size: 0.9rem; outline: none; }
 
-        .b2b-badge {
-            font-size: 0.65rem;
-            font-family: var(--font-mono);
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--accent);
-            padding: 4px 8px;
-            border-radius: 99px;
-            font-weight: 700;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+        .stat-box { background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 8px; text-align: center; }
+        .stat-num { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 800; color: var(--accent); margin-bottom: 2px; }
+        .stat-txt { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; }
 
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
+        .cta-container { margin-top: auto; padding-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .btn-primary { width: 100%; padding: 18px; background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 14px; font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; box-shadow: 0 8px 25px var(--primary-glow); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-secondary { width: 100%; padding: 14px; background: rgba(22, 32, 58, 0.8); border: 1px solid var(--border); color: var(--accent); border-radius: 12px; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .footer-note { text-align: center; font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px; }
 
-        .hero-tag {
-            align-self: flex-start;
-            font-size: 0.7rem;
-            font-family: var(--font-mono);
-            color: var(--accent);
-            background: rgba(37, 99, 235, 0.15);
-            border: 1px solid rgba(37, 99, 235, 0.3);
-            padding: 6px 12px;
-            border-radius: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(7, 10, 20, 0.85); backdrop-filter: blur(10px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .modal-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; width: 100%; max-width: 420px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; gap: 16px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 1.1rem; font-weight: 800; color: #fff; }
+        .close-btn { background: none; border: none; color: var(--text-secondary); font-size: 1.4rem; cursor: pointer; }
 
-        .hero-title {
-            font-size: 2.1rem;
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.5px;
-        }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-label { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; }
+        .form-input { width: 100%; padding: 12px; background: rgba(7, 10, 20, 0.9); border: 1px solid var(--border); border-radius: 10px; color: #fff; font-family: var(--font-main); font-size: 0.9rem; outline: none; }
+        .form-input:focus { border-color: var(--border-focus); }
 
-        .hero-title span {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .territory-selector {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .territory-label {
-            font-size: 0.7rem;
-            font-family: var(--font-mono);
-            color: var(--accent);
-            text-transform: uppercase;
-        }
-
-        .territory-select {
-            width: 100%;
-            background: rgba(7, 10, 20, 0.8);
-            border: 1px solid var(--border);
-            color: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            font-family: var(--font-main);
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-
-        .stat-box {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 12px 8px;
-            text-align: center;
-        }
-
-        .stat-num {
-            font-family: var(--font-mono);
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 2px;
-        }
-
-        .stat-txt {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-
-        .features-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        .feature-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px;
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-
-        .feature-icon {
-            background: rgba(56, 189, 248, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            color: var(--accent);
-            padding: 10px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .feature-content h4 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .feature-content p {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-
-        .cta-container {
-            margin-top: auto;
-            padding-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px var(--primary-glow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .btn-secondary {
-            width: 100%;
-            padding: 14px;
-            background: rgba(22, 32, 58, 0.8);
-            border: 1px solid var(--border);
-            color: var(--accent);
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-primary:active, .btn-secondary:active {
-            transform: scale(0.98);
-        }
-
-        .footer-note {
-            text-align: center;
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        /* MODAL STYLES */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(7, 10, 20, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #fff;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.4rem;
-            cursor: pointer;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(7, 10, 20, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: #fff;
-            font-family: var(--font-main);
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .form-input:focus {
-            border-color: var(--border-focus);
-        }
-
-        /* APP GAMEPLAY STYLES */
-        .app-shell {
-            width: 100%;
-            max-width: 440px;
-            margin: auto;
-            background: var(--surface);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            position: relative;
-        }
-
-        .toast-banner {
-            position: absolute;
-            top: 12px;
-            left: 16px;
-            right: 16px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 100;
-            transform: translateY(-130%);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-
+        .app-shell { width: 100%; max-width: 440px; margin: auto; background: var(--surface); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; gap: 18px; position: relative; }
+        .toast-banner { position: absolute; top: 12px; left: 16px; right: 16px; padding: 12px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; justify-content: space-between; z-index: 100; transform: translateY(-130%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         .toast-banner.show { transform: translateY(0); }
         .toast-danger { background: rgba(239, 68, 68, 0.95); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
         .toast-success { background: rgba(16, 185, 129, 0.95); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
 
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 14px;
-        }
+        .app-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+        .app-title { font-size: 0.95rem; font-weight: 800; letter-spacing: 1px; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .sound-toggle-btn { background: rgba(22, 32, 58, 0.8); border: 1px solid var(--border); color: var(--accent); padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-        .app-title {
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .metrics-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .metric-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px; padding: 8px 10px; }
+        .metric-label { font-size: 0.6rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; margin-bottom: 2px; }
+        .metric-value { font-family: var(--font-mono); font-size: 0.88rem; font-weight: 700; color: #fff; }
 
-        .sound-toggle-btn {
-            background: rgba(22, 32, 58, 0.8);
-            border: 1px solid var(--border);
-            color: var(--accent);
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+        .progress-bar-bg { width: 100%; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; margin-top: 4px; }
+        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.4s ease; }
 
-        .metrics-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-        }
+        .content-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+        .step-heading-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+        .step-heading { font-size: 1rem; font-weight: 700; }
+        .btn-speech { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; white-space: nowrap; }
+        .step-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
 
-        .metric-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 8px 10px;
-        }
-
-        .metric-label {
-            font-size: 0.6rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .metric-value {
-            font-family: var(--font-mono);
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 99px;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transition: width 0.4s ease;
-        }
-
-        .content-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .step-heading-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 8px;
-        }
-
-        .step-heading {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .btn-speech {
-            background: rgba(56, 189, 248, 0.15);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--accent);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .step-body {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .interactive-zone {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 4px;
-        }
-
-        .audio-box {
-            background: rgba(7, 10, 20, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px;
-        }
-
+        .interactive-zone { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+        .audio-box { background: rgba(7, 10, 20, 0.9); border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
         audio { width: 100%; height: 34px; }
 
-        .input-text {
-            width: 100%;
-            padding: 14px;
-            background: rgba(7, 10, 20, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: #fff;
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            text-align: center;
-            letter-spacing: 2px;
-            outline: none;
-        }
-
+        .input-text { width: 100%; padding: 14px; background: rgba(7, 10, 20, 0.9); border: 1px solid var(--border); border-radius: 12px; color: #fff; font-family: var(--font-mono); font-size: 1rem; text-align: center; letter-spacing: 2px; outline: none; }
         .input-text:focus { border-color: var(--border-focus); }
 
-        .digicode-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            max-width: 220px;
-            margin: 0 auto;
-        }
+        .btn-action { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px var(--primary-glow); display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .keypad-btn {
-            background: rgba(22, 32, 58, 0.9);
-            border: 1px solid var(--border);
-            color: #fff;
-            font-family: var(--font-mono);
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 12px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .keypad-btn:active { background: var(--primary); }
-
-        .tuner-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            background: rgba(7, 10, 20, 0.9);
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .tuner-readout {
-            font-family: var(--font-mono);
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .tuner-slider { width: 100%; accent-color: var(--accent); cursor: pointer; }
-
-        .stealth-gauge-bg {
-            width: 100%;
-            height: 14px;
-            background: #111827;
-            border-radius: 99px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .stealth-gauge-fill { height: 100%; width: 0%; transition: width 0.1s; }
-
-        .qte-box {
-            position: relative;
-            width: 100%;
-            height: 46px;
-            background: #07101e;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .qte-target {
-            position: absolute;
-            left: 40%;
-            width: 20%;
-            height: 100%;
-            background: rgba(16, 185, 129, 0.25);
-            border-left: 2px solid var(--success);
-            border-right: 2px solid var(--success);
-        }
-
-        .qte-cursor {
-            position: absolute;
-            left: 0%;
-            width: 6px;
-            height: 100%;
-            background: #fff;
-            box-shadow: 0 0 8px #fff;
-        }
-
-        .hint-box {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px dashed var(--warning);
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.78rem;
-            color: #fde68a;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-hint-trigger {
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            color: var(--warning);
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            align-self: flex-start;
-        }
-
-        .btn-action {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 16px var(--primary-glow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-success { background: linear-gradient(135deg, var(--success) 0%, #059669 100%); }
-
-        .app-footer-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            padding-top: 4px;
-        }
-
-        .link-back {
-            color: var(--accent);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .gps-test-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.65rem;
-            cursor: pointer;
-        }
+        .app-footer-nav { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-secondary); padding-top: 4px; }
+        .link-back { color: var(--accent); text-decoration: none; cursor: pointer; }
+        .gps-test-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-secondary); padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- ========================================== -->
-    <!-- VUE 1 : LANDING PAGE B2B ULTRA PRO         -->
-    <!-- ========================================== -->
+    <!-- VUE 1 : LANDING PAGE B2B -->
     <div id="view-landing" class="view">
         <div class="landing-header">
-            <div class="brand-logo">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
-                LE MURMURE
-            </div>
+            <div class="brand-logo">LE MURMURE</div>
             <div class="b2b-badge">ESPACE B2B & O.T.</div>
         </div>
 
         <div class="hero-section">
             <div class="hero-tag">SaaS d'Infiltration Territoriale</div>
             <h1 class="hero-title">Valorisez votre patrimoine par <span>l'espionnage grandeur nature.</span></h1>
-            <p class="hero-desc">
-                Transformez instantanément votre commune ou vos espaces touristiques en un plateau de jeu d'enquête cinématique. 100% autonome, sans application à télécharger.
-            </p>
+            <p class="hero-desc">Transformez instantanément votre commune en un plateau de jeu d'enquête cinématique. 100% autonome, sans application à télécharger.</p>
         </div>
 
         <div class="territory-selector">
             <div class="territory-label">📍 Sélection du secteur d'expérimentation</div>
-            <select class="territory-select" id="select-territory" onchange="onTerritoryChange()">
+            <select class="territory-select" id="select-territory">
                 <option value="rians">Rians (18) — Mission Parvis & Usine [Live]</option>
-                <option value="sancerre" disabled>Sancerre (18) — Infiltration Vignes [Bientôt]</option>
-                <option value="bourges" disabled>Bourges (18) — Code Palais Jacques Cœur [Bientôt]</option>
             </select>
         </div>
 
         <div class="stats-grid">
-            <div class="stat-box">
-                <div class="stat-num">0%</div>
-                <div class="stat-txt">Téléchargement</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-num">24/7</div>
-                <div class="stat-txt">Autonomie</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-num">100%</div>
-                <div class="stat-txt">Sur-mesure</div>
-            </div>
-        </div>
-
-        <div class="features-container">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                </div>
-                <div class="feature-content">
-                    <h4>Zéro Infrastructure Lourde</h4>
-                    <p>Puces NFC discrètes, QR codes étanches ou balises GPS : déployez un parcours complet en quelques heures.</p>
-                </div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                </div>
-                <div class="feature-content">
-                    <h4>Capteurs Natifs Intégrés</h4>
-                    <p>Accéléromètre pour la marche furtive, synthétiseur audio radio et décodage d'indices immersifs.</p>
-                </div>
-            </div>
+            <div class="stat-box"><div class="stat-num">0%</div><div class="stat-txt">Téléchargement</div></div>
+            <div class="stat-box"><div class="stat-num">24/7</div><div class="stat-txt">Autonomie</div></div>
+            <div class="stat-box"><div class="stat-num">100%</div><div class="stat-txt">Sur-mesure</div></div>
         </div>
 
         <div class="cta-container">
             <button class="btn-primary" onclick="switchToApp()">
                 <span>Lancer la Démo Live (Rians 18)</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
-            <button class="btn-secondary" onclick="openScoresModal()">
-                🏆 Consult la Fiche Scores International
-            </button>
-            <button class="btn-secondary" onclick="openContactModal()">
-                ✉️ Demander une étude territoriale B2B
-            </button>
+            <button class="btn-secondary" onclick="openScoresModal()">🏆 Consulter la Fiche Scores International</button>
+            <button class="btn-secondary" onclick="openContactModal()">✉️ Demander une étude territoriale B2B</button>
             <div class="footer-note">Solution validée pour Offices de Tourisme & Collectivités.</div>
         </div>
     </div>
 
-    <!-- MODAL SCORES INTERNATIONAL -->
+    <!-- MODAL SCORES -->
     <div id="modal-scores" class="modal-overlay hidden">
-        <div class="modal-card" style="max-width: 460px; max-height: 85vh; display: flex; flex-direction: column;">
+        <div class="modal-card" style="max-height: 85vh;">
             <div class="modal-header">
                 <div class="modal-title">🏆 Fiche Scores International</div>
                 <button class="close-btn" onclick="closeScoresModal()">&times;</button>
             </div>
-            <p style="font-size:0.78rem; color:var(--text-secondary)">Classement mondial en temps réel des agents d'infiltration.</p>
-            <div id="scores-container" style="display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 50vh; padding-right: 4px; margin-top: 8px;">
+            <div id="scores-container" style="display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 50vh;">
                 <div style="text-align:center; padding:20px; color:var(--text-secondary)">Chargement...</div>
             </div>
-            <button class="btn-secondary" onclick="fetchInternationalScores()" style="margin-top: auto;">
-                🔄 Actualiser le Classement
-            </button>
+            <button class="btn-secondary" onclick="fetchInternationalScores()">🔄 Actualiser</button>
         </div>
     </div>
 
@@ -800,61 +174,38 @@
                 <div class="modal-title">Étude & Démo Personnalisée</div>
                 <button class="close-btn" onclick="closeContactModal()">&times;</button>
             </div>
-            <p style="font-size:0.8rem; color:var(--text-secondary)">
-                Recevez une proposition de parcours scénarisé adapté au patrimoine de votre commune.
-            </p>
+            <p style="font-size:0.8rem; color:var(--text-secondary)">Recevez une proposition de parcours scénarisé directement sur votre boîte mail.</p>
             <div class="form-group">
                 <label class="form-label">Nom de la Collectivité / Office de Tourisme</label>
                 <input type="text" id="demo-org" placeholder="ex: Mairie de Rians" class="form-input">
             </div>
             <div class="form-group">
-                <label class="form-label">Adresse Email Professionnelle</label>
-                <input type="email" id="demo-email" placeholder="contact@commune.fr" class="form-input">
+                <label class="form-label">Votre Adresse Email</label>
+                <input type="email" id="demo-email" value="enitas.diffusion@gmail.com" class="form-input">
             </div>
             <button class="btn-primary" onclick="submitDemoRequest()">
-                Envoyer la Demande
+                Envoyer la Demande (Envoi Direct)
             </button>
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- VUE 2 : APPLICATION WEB / GAME ENGINE      -->
-    <!-- ========================================== -->
+    <!-- VUE 2 : JEU -->
     <div id="view-app" class="view hidden" style="justify-content: center;">
         <div class="app-shell">
-            <div id="toast-banner" class="toast-banner toast-danger">
-                <span id="toast-msg">Notification</span>
-            </div>
+            <div id="toast-banner" class="toast-banner toast-danger"><span id="toast-msg">Notification</span></div>
 
             <div class="app-header">
-                <div class="app-title">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
-                    LE MURMURE — LIVE
-                </div>
+                <div class="app-title">LE MURMURE — LIVE</div>
                 <div style="display:flex; gap:8px; align-items:center;">
-                    <button class="sound-toggle-btn" id="sound-btn" onclick="toggleSound()">
-                        🔊 Son
-                    </button>
-                    <a class="link-back" onclick="switchToLanding()">← Accueil B2B</a>
+                    <button class="sound-toggle-btn" id="sound-btn" onclick="toggleSound()">🔊 Son</button>
+                    <a class="link-back" onclick="switchToLanding()">← Accueil</a>
                 </div>
             </div>
 
             <div class="metrics-row">
-                <div class="metric-card">
-                    <div class="metric-label">Progression</div>
-                    <div class="metric-value" id="metric-progress">0 / 6</div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" id="progress-bar"></div>
-                    </div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Chronomètre</div>
-                    <div class="metric-value" id="metric-timer">00:00</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Radar Cible</div>
-                    <div class="metric-value" id="metric-gps">-- m</div>
-                </div>
+                <div class="metric-card"><div class="metric-label">Progression</div><div class="metric-value" id="metric-progress">0 / 6</div><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div></div>
+                <div class="metric-card"><div class="metric-label">Chrono</div><div class="metric-value" id="metric-timer">00:00</div></div>
+                <div class="metric-card"><div class="metric-label">Radar Cible</div><div class="metric-value" id="metric-gps">340 m</div></div>
             </div>
 
             <div class="content-card">
@@ -862,233 +213,115 @@
                     <div class="step-heading" id="step-title">Initialisation...</div>
                     <button class="btn-speech" onclick="speakCurrentStep()">🔊 Écouter</button>
                 </div>
-                <div class="step-body" id="step-body">Chargement du secteur tactique...</div>
+                <div class="step-body" id="step-body">Chargement...</div>
                 <div class="interactive-zone" id="interactive-zone"></div>
             </div>
 
-            <button class="btn-action" id="main-btn" onclick="actionPrincipale()">
-                Valider l'Étape
-            </button>
+            <button class="btn-action" id="main-btn" onclick="actionPrincipale()">Valider l'Étape</button>
 
             <div class="app-footer-nav">
-                <span id="status-footer">● Mode simulation B2B actif</span>
-                <button class="gps-test-btn" onclick="toggleSimulatedGps()">GPS Proximité : <span id="gps-sim-status">DÉSACTIVÉ</span></button>
+                <span>● Mode simulation B2B actif</span>
+                <button class="gps-test-btn" onclick="toggleSimulatedGps()">GPS : <span id="gps-sim-status">OFF (340m)</span></button>
             </div>
         </div>
     </div>
 
     <script>
         const SCORES_API_URL = "https://6ab4dda224ee9d3caa1bd0d0.mockapi.io/scores";
+        const FORMSPREE_URL = "https://formspree.io/f/xrpblzql";
 
         function switchToApp() {
             document.getElementById('view-landing').classList.add('hidden');
             document.getElementById('view-app').classList.remove('hidden');
-            if (state.etape === 0 && !state.startTime) {
-                renderEtape();
-            }
-            initGpsTracking();
+            if (state.etape === 0 && !state.startTime) renderEtape();
         }
 
         function switchToLanding() {
             document.getElementById('view-app').classList.add('hidden');
             document.getElementById('view-landing').classList.remove('hidden');
-            sounds.stopRadioNoise();
         }
 
-        function openContactModal() {
-            document.getElementById('modal-contact').classList.remove('hidden');
-        }
-
-        function closeContactModal() {
-            document.getElementById('modal-contact').classList.add('hidden');
-        }
-
-        function openScoresModal() {
-            document.getElementById('modal-scores').classList.remove('hidden');
-            fetchInternationalScores();
-        }
-
-        function closeScoresModal() {
-            document.getElementById('modal-scores').classList.add('hidden');
-        }
-
-        function escapeHtml(str) {
-            return String(str).replace(/[&<>"']/g, function(m) {
-                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-            });
-        }
+        function openContactModal() { document.getElementById('modal-contact').classList.remove('hidden'); }
+        function closeContactModal() { document.getElementById('modal-contact').classList.add('hidden'); }
+        function openScoresModal() { document.getElementById('modal-scores').classList.remove('hidden'); fetchInternationalScores(); }
+        function closeScoresModal() { document.getElementById('modal-scores').classList.add('hidden'); }
 
         async function fetchInternationalScores() {
             const container = document.getElementById('scores-container');
-            container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-secondary)">Chargement de la Fiche Scores...</div>';
+            container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-secondary)">Chargement...</div>';
             try {
                 const res = await fetch(SCORES_API_URL);
-                if (!res.ok) throw new Error("Erreur de récupération des scores");
                 const scores = await res.json();
-                
                 scores.sort((a, b) => (a.timeSeconds || 99999) - (b.timeSeconds || 99999));
-
-                if (scores.length === 0) {
-                    container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-secondary)">Aucun score enregistré pour le moment.</div>';
-                    return;
-                }
-
+                if (scores.length === 0) { container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-secondary)">Aucun score.</div>'; return; }
                 container.innerHTML = scores.map((s, idx) => `
                     <div style="background:var(--surface-card); border:1px solid var(--border); padding:10px 14px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <span style="font-family:var(--font-mono); font-weight:800; color:var(--accent); font-size:0.9rem;">#${idx + 1}</span>
-                            <div>
-                                <div style="font-weight:700; font-size:0.88rem; color:#fff;">${escapeHtml(s.pseudo || 'Agent Anonyme')}</div>
-                                <div style="font-size:0.7rem; color:var(--text-secondary);">${escapeHtml(s.territory || 'Rians (18)')} • ${escapeHtml(s.grade || 'Agent')}</div>
-                            </div>
-                        </div>
-                        <div style="text-align:right;">
-                            <div style="font-family:var(--font-mono); font-weight:700; color:var(--accent); font-size:0.95rem;">⏱️ ${escapeHtml(s.chrono || '--:--')}</div>
-                            <div style="font-size:0.65rem; color:var(--text-secondary);">${s.hints !== undefined ? s.hints + ' indice(s)' : ''}</div>
-                        </div>
+                        <div><div style="font-weight:700; color:#fff;">#${idx + 1} ${s.pseudo}</div><div style="font-size:0.7rem; color:var(--text-secondary);">${s.territory}</div></div>
+                        <div style="font-family:var(--font-mono); color:var(--accent);">⏱️ ${s.chrono}</div>
                     </div>
                 `).join('');
-            } catch (err) {
-                container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--danger)">Impossible d\'accéder aux scores internationaux.</div>';
-            }
+            } catch (err) { container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--danger)">Erreur de chargement.</div>'; }
         }
 
         async function submitAgentScore(pseudo, chrono, timeSeconds, hintsUsed, grade, territory) {
             try {
-                const payload = {
-                    pseudo: pseudo || "Agent Inconnu",
-                    chrono: chrono,
-                    timeSeconds: timeSeconds,
-                    hints: hintsUsed,
-                    grade: grade,
-                    territory: territory,
-                    createdAt: new Date().toISOString()
-                };
-                const res = await fetch(SCORES_API_URL, {
+                await fetch(SCORES_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({ pseudo: pseudo || "Anonyme", chrono, timeSeconds, hints: hintsUsed, grade, territory, createdAt: new Date().toISOString() })
                 });
-                if (!res.ok) throw new Error("Erreur de sauvegarde");
-                showToast("Score publié au niveau international !", true);
+                showToast("Score publié !", true);
                 openScoresModal();
-            } catch (e) {
-                showToast("Erreur lors de la publication du score", false);
-            }
+            } catch (e) { showToast("Erreur de publication", false); }
         }
 
-        function submitDemoRequest() {
-            const org = document.getElementById('demo-org').value;
-            const email = document.getElementById('demo-email').value;
-            if(!org || !email) {
-                alert("Veuillez remplir l'ensemble des champs du formulaire.");
-                return;
-            }
-            closeContactModal();
-            alert(`Merci ! Une étude d'infiltration patrimoniale pour "${org}" a été envoyée à ${email}.`);
-        }
+        async function submitDemoRequest() {
+            const org = document.getElementById('demo-org').value.trim();
+            const emailInput = document.getElementById('demo-email').value.trim();
+            if(!org) { alert("Veuillez renseigner le nom de la collectivité."); return; }
 
-        function onTerritoryChange() {
-            showToast("Secteur actif : Rians (18)", true);
+            showToast("Envoi de la demande en cours...");
+            try {
+                const response = await fetch(FORMSPREE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ organization: org, email: emailInput, message: `Demande d'étude territoriale pour ${org}` })
+                });
+
+                if (response.ok) {
+                    showToast("Demande envoyée avec succès !", true);
+                    closeContactModal();
+                } else {
+                    showToast("Erreur lors de l'envoi du formulaire", false);
+                }
+            } catch (err) {
+                showToast("Erreur réseau. Vérifiez votre configuration Formspree.", false);
+            }
         }
 
         class SoundEngine {
-            constructor() { 
-                this.ctx = null;
-                this.muted = false;
-                this.noiseNode = null;
-                this.noiseGain = null;
-            }
-            init() { 
-                if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-            }
-            toggleMute() {
-                this.muted = !this.muted;
-                if(this.muted && this.noiseGain) this.noiseGain.gain.value = 0;
-                return this.muted;
-            }
+            constructor() { this.ctx = null; this.muted = false; }
+            init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); if (this.ctx.state === 'suspended') this.ctx.resume(); }
+            toggleMute() { this.muted = !this.muted; return this.muted; }
             playBip(freq = 800, type = 'sine', duration = 0.08) {
                 if (this.muted) return;
                 this.init();
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
-                osc.type = type;
-                osc.frequency.value = freq;
+                osc.type = type; osc.frequency.value = freq;
                 gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start();
-                osc.stop(this.ctx.currentTime + duration);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(); osc.stop(this.ctx.currentTime + duration);
             }
-            playSuccess() {
-                if (this.muted) return;
-                this.playBip(523, 'sine', 0.1);
-                setTimeout(() => this.playBip(659, 'sine', 0.1), 100);
-                setTimeout(() => this.playBip(783, 'sine', 0.2), 200);
-            }
-            playError() { 
-                if (this.muted) return;
-                this.playBip(220, 'sawtooth', 0.25); 
-            }
-            startRadioNoise() {
-                if (this.muted) return;
-                this.init();
-                if (this.noiseNode) return;
-                const bufferSize = this.ctx.sampleRate * 2;
-                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-                const output = buffer.getChannelData(0);
-                for (let i = 0; i < bufferSize; i++) {
-                    output[i] = Math.random() * 2 - 1;
-                }
-                this.noiseNode = this.ctx.createBufferSource();
-                this.noiseNode.buffer = buffer;
-                this.noiseNode.loop = true;
-                this.noiseGain = this.ctx.createGain();
-                this.noiseGain.gain.value = 0.02;
-                this.noiseNode.connect(this.noiseGain);
-                this.noiseGain.connect(this.ctx.destination);
-                this.noiseNode.start();
-            }
-            updateRadioNoise(freq, targetFreq) {
-                if (!this.noiseGain) return;
-                const diff = Math.abs(freq - targetFreq);
-                const noiseVol = Math.min(0.1, diff * 0.02);
-                this.noiseGain.gain.setValueAtTime(this.muted ? 0 : noiseVol, this.ctx.currentTime);
-            }
-            stopRadioNoise() {
-                if (this.noiseNode) {
-                    try { this.noiseNode.stop(); } catch(e){}
-                    this.noiseNode = null;
-                    this.noiseGain = null;
-                }
-            }
-            speak(text) {
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    utterance.lang = 'fr-FR';
-                    utterance.rate = 0.95;
-                    window.speechSynthesis.speak(utterance);
-                }
-            }
+            playSuccess() { if (this.muted) return; this.playBip(523); setTimeout(() => this.playBip(659), 100); setTimeout(() => this.playBip(783), 200); }
+            playError() { if (this.muted) return; this.playBip(220, 'sawtooth', 0.25); }
+            speak(text) { if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'fr-FR'; window.speechSynthesis.speak(u); } }
         }
 
         const sounds = new SoundEngine();
-
-        function toggleSound() {
-            const isMuted = sounds.toggleMute();
-            document.getElementById('sound-btn').innerText = isMuted ? "🔇 Muet" : "🔊 Son";
-        }
-
-        function speakCurrentStep() {
-            const step = mission[state.etape];
-            if(step) {
-                sounds.speak(`${step.nom}. ${step.description}`);
-            }
-        }
-
+        function toggleSound() { const m = sounds.toggleMute(); document.getElementById('sound-btn').innerText = m ? "🔇 Muet" : "🔊 Son"; }
+        function speakCurrentStep() { const s = mission[state.etape]; if(s) sounds.speak(`${s.nom}. ${s.description}`); }
         function showToast(msg, isSuccess = false) {
             const toast = document.getElementById('toast-banner');
             document.getElementById('toast-msg').innerText = msg;
@@ -1097,86 +330,22 @@
         }
 
         const mission = [
-            {
-                id: 1, nom: "Étape 1 : Parvis Saint-Christophe", lat: 47.1853, lng: 2.6142, type: "audio_riddle",
-                audioFile: "enigme1.mp3", reponse: "CLOCHE",
-                description: "Rejoins le parvis. Intercepte l'enregistrement audio et saisis le mot-clé d'accès.",
-                msgSucces: "Canal audio décodé ! Descends la rue vers le ruisseau.",
-                indice: "Écoute attentivement le son de bronze résonnant dans le message audio."
+            { 
+                id: 1, 
+                nom: "Étape 1 : Parvis Saint-Christophe", 
+                reponse: "CLOCHE", 
+                description: "Rejoins le parvis. Intercepte l'enregistrement audio crypté et saisis le mot-clé d'accès.", 
+                hasAudio: true,
+                msgSucces: "Canal décodé !" 
             },
-            {
-                id: 2, nom: "Étape 2 : Le Pont de l'Ouatier", lat: 47.1859, lng: 2.6152, type: "stealth_walk",
-                description: "Traverse le pont en visant une marche régulière. La jauge ne doit pas saturer.",
-                msgSucces: "Traversée furtive réussie ! Remonte vers la Mairie.",
-                indice: "Déplace-toi lentement en maintaining ton appareil le plus fixe possible."
-            },
-            {
-                id: 3, nom: "Étape 3 : Serveur de la Mairie", lat: 47.1848, lng: 2.6133, type: "digicode", reponse: "1842",
-                description: "Observe la date gravée au-dessus du portail et entre le code d'accès.",
-                msgSucces: "Accès au serveur accordé. Cap vers le cimetière.",
-                indice: "Saisis la date de construction gravée dans le fronton (4 chiffres)."
-            },
-            {
-                id: 4, nom: "Étape 4 : Les Grilles du Cimetière", lat: 47.1872, lng: 2.6120, type: "radio_tuner", targetFreq: 104.2,
-                description: "Calibre le récepteur radio sur la fréquence clandestine (104.2 MHz).",
-                msgSucces: "Fréquence synchronisée ! Rapproche-toi du stade.",
-                indice: "Fais glisser le curseur exactement sur 104.2 MHz."
-            },
-            {
-                id: 5, nom: "Étape 5 : Le Stade de Football", lat: 47.1865, lng: 2.6180, type: "qte_reflex",
-                description: "Neutralise les projecteurs : appuie au moment exact où le curseur traverse la zone verte (3 fois).",
-                msgSucces: "Projecteurs désactivés ! Dernière étape à l'Usine Rians.",
-                indice: "Patiente jusqu'à ce que la barre blanche franchisse le milieu vert."
-            },
-            {
-                id: 6, nom: "Étape 6 : Boutique Usine Rians", lat: 47.1820, lng: 2.6064, type: "final_pass", reponse: "TRIBALLAT",
-                description: "Trouve la boîte dissimulée et entre la clé d'accréditation finale.",
-                msgSucces: "OPÉRATION VALIDÉE ! Attestation d'agent délivrée.",
-                indice: "Nom de la famille fondatrice de la laiterie historique du village."
-            }
+            { id: 2, nom: "Étape 2 : Le Pont de l'Ouatier", reponse: "OUATIER", description: "Traverse le pont de manière furtive.", hasAudio: false, msgSucces: "Traversée réussie !" },
+            { id: 3, nom: "Étape 3 : Serveur de la Mairie", reponse: "1842", description: "Entre le code d'accès historique.", hasAudio: false, msgSucces: "Accès accordé !" },
+            { id: 4, nom: "Étape 4 : Les Grilles du Cimetière", reponse: "FER", description: "Quel métal compose la structure ?", hasAudio: false, msgSucces: "Fréquence synchronisée !" },
+            { id: 5, nom: "Étape 5 : Le Stade de Football", reponse: "FOOTBALL", description: "Quel sport est pratiqué ici ?", hasAudio: false, msgSucces: "Projecteurs désactivés !" },
+            { id: 6, nom: "Étape 6 : Boutique Usine Rians", reponse: "TRIBALLAT", description: "Nom de la famille fondatrice historique.", hasAudio: false, msgSucces: "OPÉRATION VALIDÉE !" }
         ];
 
-        let state = { 
-            etape: 0, 
-            startTime: null, 
-            timerInterval: null, 
-            qteHits: 0, 
-            hintsUsed: 0,
-            simulatedGps: false 
-        };
-
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371000;
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                      Math.sin(dLon/2) * Math.sin(dLon/2);
-            return Math.round(R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))));
-        }
-
-        function initGpsTracking() {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.watchPosition((pos) => {
-                    if (state.simulatedGps) return;
-                    const step = mission[state.etape];
-                    if (step) {
-                        const dist = calculateDistance(pos.coords.latitude, pos.coords.longitude, step.lat, step.lng);
-                        document.getElementById('metric-gps').innerText = `${dist} m`;
-                    }
-                }, () => {
-                    if(!state.simulatedGps) document.getElementById('metric-gps').innerText = "35 m*";
-                });
-            } else {
-                document.getElementById('metric-gps').innerText = "35 m*";
-            }
-        }
-
-        function toggleSimulatedGps() {
-            state.simulatedGps = !state.simulatedGps;
-            document.getElementById('gps-sim-status').innerText = state.simulatedGps ? "ACTIVÉ (12m)" : "DÉSACTIVÉ";
-            document.getElementById('metric-gps').innerText = state.simulatedGps ? "12 m" : "-- m";
-        }
+        let state = { etape: 0, startTime: null, timerInterval: null, hintsUsed: 0, simulatedGps: false, distance: 340 };
 
         function updateTimer() {
             if (!state.startTime) return;
@@ -1195,155 +364,61 @@
         }
 
         function renderEtape() {
-            sounds.stopRadioNoise();
             renderProgress();
             const step = mission[state.etape];
             document.getElementById('step-title').innerText = step.nom;
             document.getElementById('step-body').innerText = step.description;
-
-            const zone = document.getElementById('interactive-zone');
-            zone.innerHTML = '';
-
-            if (step.type === 'audio_riddle' || step.type === 'final_pass') {
-                zone.innerHTML = `
+            
+            let html = '';
+            if (step.hasAudio) {
+                html += `
                     <div class="audio-box">
-                        <div style="font-size:0.7rem; color:var(--accent); margin-bottom:6px">CANAL AUDIO CRYPTÉ</div>
-                        <audio controls src="${step.audioFile}"></audio>
-                    </div>
-                    <input type="text" id="input-code" placeholder="MOT-CLÉ" class="input-text">
-                `;
-            } else if (step.type === 'digicode') {
-                zone.innerHTML = `
-                    <input type="text" id="input-code" readonly placeholder="----" class="input-text">
-                    <div class="digicode-grid">
-                        ${[1,2,3,4,5,6,7,8,9,0].map(n=>`<button class="keypad-btn" onclick="pressKey('${n}')">${n}</button>`).join('')}
-                        <button class="keypad-btn" style="grid-column: span 2; font-size:0.75rem" onclick="clearKey()">EFFACER</button>
+                        <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--accent); margin-bottom:6px;">CANAL AUDIO CRYPTÉ (🔒 Portée max : 30m)</div>
+                        <audio controls onplay="checkProximity(event)">
+                            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'audio.
+                        </audio>
                     </div>
                 `;
-            } else if (step.type === 'radio_tuner') {
-                zone.innerHTML = `
-                    <div class="tuner-container">
-                        <div class="tuner-readout" id="tuner-val">90.0 MHz</div>
-                        <input type="range" min="88.0" max="108.0" step="0.1" value="90.0" class="tuner-slider" id="tuner-range" oninput="updateTuner(this.value)">
-                    </div>
-                `;
-                sounds.startRadioNoise();
-            } else if (step.type === 'stealth_walk') {
-                zone.innerHTML = `
-                    <div style="font-size:0.75rem; color:var(--text-secondary)">Stabilité du mouvement :</div>
-                    <div class="stealth-gauge-bg">
-                        <div class="stealth-gauge-fill" id="stealth-fill" style="background:var(--success); width:25%;"></div>
-                    </div>
-                    <div id="stealth-status" style="font-size:0.7rem; color:var(--success); font-family:var(--font-mono)">Allure Furtive OK</div>
-                `;
-                initStealthSensors();
-            } else if (step.type === 'qte_reflex') {
-                zone.innerHTML = `
-                    <div style="font-size:0.75rem; color:var(--text-secondary)">Cible (${state.qteHits}/3) :</div>
-                    <div class="qte-box">
-                        <div class="qte-target"></div>
-                        <div class="qte-cursor" id="qte-cursor"></div>
-                    </div>
-                `;
-                initQTEGame();
             }
-
-            const hintBtn = document.createElement('button');
-            hintBtn.className = 'btn-hint-trigger';
-            hintBtn.innerHTML = '💡 Demander un indice tactique';
-            hintBtn.onclick = () => revealHint(step.indice, hintBtn);
-            zone.appendChild(hintBtn);
-
+            html += `<input type="text" id="input-code" placeholder="MOT-CLÉ" class="input-text">`;
+            document.getElementById('interactive-zone').innerHTML = html;
             document.getElementById('main-btn').innerText = "Valider l'Étape";
-            document.getElementById('main-btn').className = "btn-action";
         }
 
-        function revealHint(text, btnNode) {
-            state.hintsUsed++;
-            sounds.playBip(600, 'sine', 0.1);
-            const box = document.createElement('div');
-            box.className = 'hint-box';
-            box.innerHTML = `<span>💡 <strong>INDICE :</strong> ${text}</span>`;
-            btnNode.replaceWith(box);
-        }
-
-        function pressKey(n) { sounds.playBip(900); const i = document.getElementById('input-code'); if(i && i.value.length < 6) i.value += n; }
-        function clearKey() { sounds.playBip(400); const i = document.getElementById('input-code'); if(i) i.value = ''; }
-        function updateTuner(val) { 
-            sounds.playBip(100 + (val*8), 'triangle', 0.03); 
-            document.getElementById('tuner-val').innerText = `${parseFloat(val).toFixed(1)} MHz`; 
-            sounds.updateRadioNoise(parseFloat(val), 104.2);
-        }
-
-        let qteAnim = null, qtePos = 0, qteDir = 2;
-        function initQTEGame() {
-            const cursor = document.getElementById('qte-cursor');
-            function anim() {
-                if(!cursor) return;
-                qtePos += qteDir;
-                if(qtePos >= 98 || qtePos <= 0) qteDir *= -1;
-                cursor.style.left = qtePos + '%';
-                qteAnim = requestAnimationFrame(anim);
+        // VERIFICATION DE LA PROXIMITÉ (MAX 30 MÈTRES)
+        function checkProximity(event) {
+            if (state.distance > 30) {
+                event.target.pause();
+                event.target.currentTime = 0;
+                sounds.playError();
+                showToast(`🚨 SÉCURITÉ : Trop loin (${state.distance}m). Approchez à < 30m.`);
+            } else {
+                showToast("🔓 Canal audio déchiffré avec succès !", true);
             }
-            if(qteAnim) cancelAnimationFrame(qteAnim);
-            qteAnim = requestAnimationFrame(anim);
         }
 
-        function initStealthSensors() {
-            if(window.DeviceMotionEvent) {
-                window.addEventListener('devicemotion', (e) => {
-                    const fill = document.getElementById('stealth-fill');
-                    const status = document.getElementById('stealth-status');
-                    if(!fill) return;
-                    const acc = e.accelerationIncludingGravity;
-                    if(!acc) return;
-                    const total = Math.abs(acc.x||0) + Math.abs(acc.y||0) + Math.abs(acc.z||0);
-                    if(total > 22) {
-                        fill.style.width = "100%"; fill.style.background = "var(--danger)";
-                        status.innerText = "⚠️ MOUVEMENT TROP BRUSQUE !"; status.style.color = "var(--danger)";
-                        sounds.playError();
-                    } else {
-                        fill.style.width = "25%"; fill.style.background = "var(--success)";
-                        status.innerText = "Allure Furtive OK"; status.style.color = "var(--success)";
-                    }
-                });
-            }
+        function toggleSimulatedGps() {
+            state.simulatedGps = !state.simulatedGps;
+            // Si simulé ON, on passe à 12m (portée valide), sinon on revient à 340m (trop loin)
+            state.distance = state.simulatedGps ? 12 : 340;
+            
+            document.getElementById('gps-sim-status').innerText = state.simulatedGps ? "ON (12m)" : "OFF (340m)";
+            document.getElementById('metric-gps').innerText = `${state.distance} m`;
         }
 
         function actionPrincipale() {
             sounds.init();
             startTimer();
-            if(state.etape >= mission.length) { 
-                switchToLanding(); 
-                state.etape = 0; 
-                state.startTime = null; 
-                state.hintsUsed = 0;
-                return; 
-            }
+            if(state.etape >= mission.length) { switchToLanding(); state.etape = 0; state.startTime = null; return; }
 
             const step = mission[state.etape];
-            if(step.type === 'audio_riddle' || step.type === 'digicode' || step.type === 'final_pass') {
-                const val = document.getElementById('input-code')?.value.trim().toUpperCase() || '';
-                if(val !== step.reponse) { sounds.playError(); showToast("RÉPONSE INCORRECTE"); return; }
-            } else if(step.type === 'radio_tuner') {
-                const val = parseFloat(document.getElementById('tuner-range').value);
-                if(Math.abs(val - step.targetFreq) > 0.2) { sounds.playError(); showToast("FRÉQUENCE INCORRECTE (Visez 104.2 MHz)"); return; }
-            } else if(step.type === 'qte_reflex') {
-                if(qtePos >= 40 && qtePos <= 60) {
-                    state.qteHits++; sounds.playSuccess();
-                    if(state.qteHits < 3) { document.getElementById('step-body').innerText = `Neutralisation réussie (${state.qteHits}/3) ! Recommencez.`; return; }
-                } else { sounds.playError(); showToast("RATÉ ! Visez la zone verte."); return; }
-            }
+            const val = document.getElementById('input-code')?.value.trim().toUpperCase() || '';
+            if(val !== step.reponse) { sounds.playError(); showToast("MOT-CLÉ INCORRECT"); return; }
 
-            validerSuccesEtape();
-        }
-
-        function validerSuccesEtape() {
-            sounds.stopRadioNoise();
             sounds.playSuccess();
             showToast("ÉTAPE VALIDÉE !", true);
-            const step = mission[state.etape];
-            document.getElementById('step-title').innerText = "Accréditation Accordée";
+            document.getElementById('step-title').innerText = "Accès Accordé";
             document.getElementById('step-body').innerText = step.msgSucces;
             document.getElementById('interactive-zone').innerHTML = '';
 
@@ -1354,27 +429,21 @@
                 clearInterval(state.timerInterval);
                 const timeSeconds = Math.floor((Date.now() - state.startTime) / 1000);
                 const finalChrono = document.getElementById('metric-timer').innerText;
-                const grade = state.hintsUsed === 0 ? "Agent S — Mamba" : (state.hintsUsed <= 2 ? "Agent A — Renard" : "Agent B — Ombre");
                 
                 document.getElementById('step-title').innerText = "🏆 OPÉRATION ACCOMPLIE";
                 document.getElementById('step-body').innerHTML = `
-                    <strong>Rapport d'Infiltration B2B validé !</strong><br><br>
-                    ⏱️ Chrono final : <strong>${finalChrono}</strong><br>
-                    💡 Indices sollicités : <strong>${state.hintsUsed}</strong><br>
-                    🎖️ Rating d'Agent : <strong>${grade}</strong><br><br>
-                    <div style="background:rgba(7,10,20,0.8); border:1px solid var(--border); padding:12px; border-radius:10px;">
-                        <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:6px;">Inscrire ton pseudonyme au classement mondial :</label>
-                        <input type="text" id="agent-pseudo" placeholder="ex: Spectre_18" class="form-input" style="margin-bottom:10px;">
-                        <button class="btn-secondary" onclick="submitAgentScore(document.getElementById('agent-pseudo').value, '${finalChrono}', ${timeSeconds}, ${state.hintsUsed}, '${grade}', 'Rians (18)')">
-                            📤 Publier mon Score International
-                        </button>
-                    </div>
+                    Rapport validé ! Chrono : <strong>${finalChrono}</strong><br><br>
+                    <input type="text" id="agent-pseudo" placeholder="VOTRE PSEUDO" class="form-input" style="margin-bottom:10px;">
                 `;
-                document.getElementById('main-btn').innerText = "Retour à l'Accueil B2B";
-                document.getElementById('main-btn').className = "btn-action btn-success";
+                document.getElementById('main-btn').innerText = "Publier mon Score";
+                document.getElementById('main-btn').onclick = async () => {
+                    await submitAgentScore(document.getElementById('agent-pseudo').value, finalChrono, timeSeconds, 0, "Agent", "Rians (18)");
+                    switchToLanding();
+                    state.etape = 0; state.startTime = null;
+                    document.getElementById('main-btn').onclick = actionPrincipale;
+                };
             } else {
                 document.getElementById('main-btn').innerText = "Étape Suivante →";
-                document.getElementById('main-btn').className = "btn-action btn-success";
                 document.getElementById('main-btn').onclick = () => { renderEtape(); document.getElementById('main-btn').onclick = actionPrincipale; };
             }
         }
