@@ -2,33 +2,43 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Murmure — Operation Rians</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <title>LE MURMURE — Operation Tactical GPS</title>
     <style>
         :root {
-            --bg-main: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.85);
-            --border-color: rgba(255, 255, 255, 0.1);
+            --bg-dark: #090d16;
+            --surface: rgba(15, 23, 42, 0.85);
+            --surface-card: rgba(30, 41, 59, 0.7);
+            --border: rgba(255, 255, 255, 0.12);
+            --border-focus: #38bdf8;
             --primary: #2563eb;
-            --primary-hover: #1d4ed8;
+            --primary-glow: rgba(37, 99, 235, 0.35);
             --accent: #38bdf8;
+            --warning: #f59e0b;
             --success: #10b981;
             --danger: #ef4444;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            --font-mono: "SF Mono", "Roboto Mono", "Courier New", monospace;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-main);
-            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 75%);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 50% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
+            color: var(--text-primary);
+            font-family: var(--font-main);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -36,195 +46,335 @@
             padding: 16px;
         }
 
-        .app-card {
+        .app-shell {
             width: 100%;
             max-width: 440px;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 14px;
         }
 
-        .brand {
+        .brand-title {
             font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: var(--text-main);
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
+        .badge-sector {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
             color: var(--accent);
             background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
             padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 99px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .status-dot {
+        .pulse-dot {
             width: 6px;
             height: 6px;
             background-color: var(--accent);
             border-radius: 50%;
             box-shadow: 0 0 8px var(--accent);
+            animation: pulse 2s infinite;
         }
 
-        .progress-container {
-            margin-bottom: 20px;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
         }
 
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            font-weight: 500;
+        .metrics-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .metric-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 14px;
+        }
+
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .metric-value {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
         .progress-bar-bg {
             width: 100%;
             height: 6px;
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 3px;
+            border-radius: 99px;
             overflow: hidden;
+            margin-top: 4px;
         }
 
         .progress-bar-fill {
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 3px;
-            transition: width 0.4s ease;
+            border-radius: 99px;
+            transition: width 0.5s ease;
         }
 
-        .content-box {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
+        .content-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .step-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 8px;
+        .step-heading {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
-        .step-text {
+        .step-body {
             font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
+            color: var(--text-secondary);
+            line-height: 1.55;
         }
 
-        .audio-wrapper {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
+        .interactive-zone {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .audio-box {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 12px;
             padding: 12px;
-            margin-bottom: 16px;
         }
 
-        .audio-label {
+        .audio-box-title {
             font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-family: var(--font-mono);
             color: var(--accent);
             margin-bottom: 8px;
-            font-weight: 600;
+            text-transform: uppercase;
         }
 
         audio {
             width: 100%;
-            height: 36px;
-            border-radius: 6px;
+            height: 38px;
         }
 
-        .input-field {
+        .input-text {
             width: 100%;
             padding: 14px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-main);
-            font-size: 0.95rem;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 1rem;
             text-align: center;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
+            letter-spacing: 2px;
             outline: none;
             transition: border-color 0.2s;
         }
 
-        .input-field:focus {
-            border-color: var(--accent);
+        .input-text:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
         }
 
-        .btn {
-            width: 100%;
+        /* Keypad Digicode */
+        .digicode-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            max-width: 240px;
+            margin: 0 auto;
+        }
+
+        .keypad-btn {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid var(--border);
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 700;
             padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .keypad-btn:active {
             background: var(--primary);
+            transform: scale(0.95);
+        }
+
+        /* Radio Tuner Slider */
+        .tuner-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .tuner-readout {
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .tuner-slider {
+            width: 100%;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* Gauge Furtive / Movement */
+        .stealth-gauge-bg {
+            width: 100%;
+            height: 16px;
+            background: #1e293b;
+            border-radius: 99px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .stealth-gauge-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--success);
+            transition: width 0.1s ease, background 0.2s;
+        }
+
+        /* QTE Canvas Game */
+        .qte-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .qte-target {
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            height: 100%;
+            background: rgba(16, 185, 129, 0.25);
+            border-left: 2px solid var(--success);
+            border-right: 2px solid var(--success);
+        }
+
+        .qte-cursor {
+            position: absolute;
+            left: 0%;
+            width: 6px;
+            height: 100%;
+            background: #fff;
+            box-shadow: 0 0 10px #fff;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
             color: #ffffff;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            box-shadow: 0 4px 16px var(--primary-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .btn:hover {
-            background: var(--primary-hover);
+        .btn-action:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
         }
 
-        .btn:active {
-            transform: scale(0.99);
+        .btn-action:active {
+            transform: translateY(1px);
         }
 
         .btn-success {
-            background: var(--success);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
         }
 
-        .btn-success:hover {
-            background: #059669;
-        }
-
-        .footer-status {
-            text-align: center;
+        .status-footer {
             font-size: 0.78rem;
-            color: var(--text-muted);
-            margin-top: 16px;
+            color: var(--text-secondary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .dev-panel {
-            margin-top: 16px;
-            padding-top: 12px;
-            border-top: 1px dashed var(--border-color);
+            margin-top: 8px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border);
             text-align: center;
             font-size: 0.75rem;
-            color: #64748b;
+            color: var(--text-secondary);
         }
 
         .dev-panel label {
@@ -237,262 +387,419 @@
 </head>
 <body>
 
-    <div class="app-card">
+    <div class="app-shell">
         <div class="header">
-            <div class="brand">LE MURMURE</div>
-            <div class="status-badge">
-                <span class="status-dot"></span>
+            <div class="brand-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
+                LE MURMURE
+            </div>
+            <div class="badge-sector">
+                <span class="pulse-dot"></span>
                 <span>RIANS (18)</span>
             </div>
         </div>
 
-        <div class="progress-container">
-            <div class="progress-info">
-                <span>Progression</span>
-                <span id="step-counter">0 / 6</span>
+        <div class="metrics-row">
+            <div class="metric-card">
+                <div class="metric-label">Progression</div>
+                <div class="metric-value" id="metric-progress">0 / 6</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
             </div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progress-bar"></div>
-            </div>
-        </div>
-
-        <div class="content-box">
-            <div class="step-title" id="step-title">Initialisation du système</div>
-            <div class="step-text" id="terminal-text">
-                Activation de la connexion sécurisée du secteur Rians (18220).
-                <br><br>
-                Veuillez autoriser l'accès GPS pour démarrer l'opération.
+            <div class="metric-card">
+                <div class="metric-label">Chronomètre</div>
+                <div class="metric-value" id="metric-timer">00:00</div>
             </div>
         </div>
 
-        <div id="action-area">
-            <button class="btn" onclick="demarrerMission()">Démarrer l'Infiltration</button>
+        <div class="content-card">
+            <div class="step-heading" id="step-title">Opération Rians 18220</div>
+            <div class="step-body" id="step-body">
+                Bienvenue Agent. L'application requiert l'activation du récepteur GPS pour géolocaliser les balises d'infiltrations du secteur.
+            </div>
+
+            <div class="interactive-zone" id="interactive-zone">
+                <!-- Zone dynamique injectée par JS -->
+            </div>
         </div>
 
-        <div class="footer-status" id="status">En attente de la géolocalisation...</div>
+        <button class="btn-action" id="main-btn" onclick="actionPrincipale()">
+            Initialiser la Mission
+        </button>
+
+        <div class="status-footer" id="status-footer">
+            <span>● Status : Prêt</span>
+        </div>
 
         <div class="dev-panel">
             <label>
-                <input type="checkbox" id="testMode" onchange="toggleTestMode()"> Mode Test (bypass GPS)
+                <input type="checkbox" id="testMode" onchange="toggleTestMode()"> [B2B DEV] Mode simulation sans GPS
             </label>
         </div>
     </div>
 
     <script>
-        const missionRians = [
+        // Moteur audio de synthèse Web Audio API
+        class SoundEngine {
+            constructor() { this.ctx = null; }
+            init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
+            playBip(freq = 800, type = 'sine', duration = 0.08) {
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + duration);
+            }
+            playSuccess() {
+                this.playBip(523, 'sine', 0.1);
+                setTimeout(() => this.playBip(659, 'sine', 0.1), 100);
+                setTimeout(() => this.playBip(783, 'sine', 0.2), 200);
+            }
+            playError() {
+                this.playBip(220, 'sawtooth', 0.25);
+            }
+        }
+
+        const sounds = new SoundEngine();
+
+        // Base de données des étapes B2B
+        const mission = [
             {
-                nom: "Étape 1 : Le Parvis Saint-Christophe",
-                lat: 47.1853,
-                lng: 2.6142,
-                description: "Rejoins le parvis de l'église. Écoute l'enregistrement audio ci-dessous et entre la réponse à l'énigme pour déverrouiller le signal.",
+                id: 1,
+                nom: "Étape 1 : Parvis Saint-Christophe",
+                lat: 47.1853, lng: 2.6142,
+                type: "audio_riddle",
                 audioFile: "enigme1.mp3",
-                reponseEnigme: "CLOCHE",
-                msgSucces: "Énigme résolue ! Le canal audio est décodé. Descends la rue vers le ruisseau de l'Ouatier."
+                reponse: "CLOCHE",
+                description: "Rejoins le parvis de l'église. Intercepte l'enregistrement audio et saisie le mot-clé.",
+                msgSucces: "Canal audio décodé ! Descends la rue vers le ruisseau de l'Ouatier."
             },
             {
+                id: 2,
                 nom: "Étape 2 : Le Pont de l'Ouatier",
-                lat: 47.1859,
-                lng: 2.6152,
-                description: "Approche-toi de la rambarde du pont de l'Ouatier pour capter la fréquence.",
-                msgSucces: "Zone franchie avec succès. Remonte vers la Place de la Mairie."
+                lat: 47.1859, lng: 2.6152,
+                type: "stealth_walk",
+                description: "Traverse le pont en maintenant le téléphone parfaitement stable. La jauge de mouvement ne doit pas dépasser le seuil critique.",
+                msgSucces: "Traversée furtive réussie ! Remonte vers la Place de la Mairie."
             },
             {
-                nom: "Étape 3 : Le Serveur de la Mairie",
-                lat: 47.1848,
-                lng: 2.6133,
-                description: "Positionne-toi sur le parvis de la Mairie pour sécuriser les archives.",
-                msgSucces: "Données sécurisées. Cap au nord vers les grilles du cimetière."
+                id: 3,
+                nom: "Étape 3 : Serveur de la Mairie",
+                lat: 47.1848, lng: 2.6133,
+                type: "digicode",
+                reponse: "1842",
+                description: "Observe la date gravée au-dessus du portail d'entrée de la Mairie et entre le digicode d'accès.",
+                msgSucces: "Accès au serveur accordé. Cap au Nord vers les grilles du cimetière."
             },
             {
+                id: 4,
                 nom: "Étape 4 : Les Grilles du Cimetière",
-                lat: 47.1872,
-                lng: 2.6120,
-                description: "Rapproche-toi des grilles du cimetière pour extraire le signal.",
-                msgSucces: "Fréquence extraite ! Fonce vers l'entrée du complexe sportif."
+                lat: 47.1872, lng: 2.6120,
+                type: "radio_tuner",
+                targetFreq: 104.2,
+                description: "Calibre le récepteur radio sur la fréquence exacte de transmission clandestine (autour de 104.0 MHz).",
+                msgSucces: "Fréquence radio synchronisée ! Rapproche-toi du stade."
             },
             {
+                id: 5,
                 nom: "Étape 5 : Le Stade de Football",
-                lat: 47.1865,
-                lng: 2.6180,
-                description: "Positionne-toi devant l'entrée principale du stade.",
-                msgSucces: "Périmètre validé ! Dernière ligne droite vers l'Usine Rians."
+                lat: 47.1865, lng: 2.6180,
+                type: "qte_reflex",
+                description: "Neutralise les projecteurs : appuie sur le bouton au moment exact où le curseur traverse la zone verte à 3 reprises.",
+                msgSucces: "Projecteurs désactivés ! Dernière ligne droite vers l'Usine Rians."
             },
             {
-                nom: "Étape 6 : La Boutique de l'Usine Rians (Final)",
-                lat: 47.1820,
-                lng: 2.6064,
-                description: "Localise la boîte dissimulée près des grilles. Déroule le registre physique, signe ton nom de code et entre le mot de passe inscrit sur le papier.",
-                codeRegistre: "TRIBALLAT",
-                msgSucces: "OPERATION REUSSIE ! Ton nom est inscrit dans le Registre Officiel des Agents."
+                id: 6,
+                nom: "Étape 6 : Boutique Usine Rians (Final)",
+                lat: 47.1820, lng: 2.6064,
+                type: "final_pass",
+                reponse: "TRIBALLAT",
+                description: "Trouve la boîte dissimulée près des grilles. Signe le registre papier et entre la clé d'accréditation inscrite.",
+                msgSucces: "OPÉRATION VALIDÉE ! Ton attestation d'agent est enregistrée."
             }
         ];
 
-        let etapeActuelle = 0;
-        const RAYON_VALIDE = 30; // Tolérance GPS en mètres
-        let isTestMode = false;
+        let state = {
+            etape: 0,
+            startTime: null,
+            timerInterval: null,
+            isTestMode: false,
+            qteHits: 0
+        };
+
+        const RAYON_GPS = 30; // Mètres
 
         function toggleTestMode() {
-            isTestMode = document.getElementById('testMode').checked;
-            if (isTestMode) alert("Mode Test ACTIVÉ : La validation GPS est désormais ignorée.");
+            state.isTestMode = document.getElementById('testMode').checked;
+            if (state.isTestMode) alert("MODE TEST : Contraintes GPS ignorées pour démonstration.");
         }
 
-        function calculerDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371000;
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+        function updateTimer() {
+            if (!state.startTime) return;
+            const diff = Math.floor((Date.now() - state.startTime) / 1000);
+            const mins = String(Math.floor(diff / 60)).padStart(2, '0');
+            const secs = String(diff % 60).padStart(2, '0');
+            document.getElementById('metric-timer').innerText = `${mins}:${secs}`;
         }
 
-        function demarrerMission() {
-            afficherEtape();
+        function startTimer() {
+            if (!state.startTime) state.startTime = Date.now();
+            if (!state.timerInterval) state.timerInterval = setInterval(updateTimer, 1000);
         }
 
-        function updateProgressBar() {
-            const total = missionRians.length;
-            const percent = (etapeActuelle / total) * 100;
-            document.getElementById('progress-bar').style.width = percent + "%";
-            document.getElementById('step-counter').innerText = `${etapeActuelle} / ${total}`;
+        function renderProgress() {
+            const total = mission.length;
+            const current = state.etape;
+            document.getElementById('metric-progress').innerText = `${current} / ${total}`;
+            document.getElementById('progress-bar').style.width = `${(current / total) * 100}%`;
         }
 
-        function afficherEtape() {
-            const step = missionRians[etapeActuelle];
-            updateProgressBar();
-
+        function renderEtape() {
+            renderProgress();
+            const step = mission[state.etape];
             document.getElementById('step-title').innerText = step.nom;
-            document.getElementById('terminal-text').innerText = step.description;
+            document.getElementById('step-body').innerText = step.description;
 
-            let htmlAction = '';
+            const zone = document.getElementById('interactive-zone');
+            zone.innerHTML = '';
 
-            // 1. Lecteur Audio
-            if (step.audioFile) {
-                htmlAction += `
-                    <div class="audio-wrapper">
-                        <div class="audio-label">🔊 Interception Audio</div>
+            if (step.type === 'audio_riddle') {
+                zone.innerHTML = `
+                    <div class="audio-box">
+                        <div class="audio-box-title">🔊 Récepteur Audio Frequence 1</div>
                         <audio controls src="${step.audioFile}"></audio>
                     </div>
+                    <input type="text" id="input-code" placeholder="RÉPONSE" class="input-text">
+                `;
+            } else if (step.type === 'digicode') {
+                zone.innerHTML = `
+                    <input type="text" id="input-code" readonly placeholder="----" class="input-text">
+                    <div class="digicode-grid">
+                        ${[1,2,3,4,5,6,7,8,9,0].map(n => `<button class="keypad-btn" onclick="pressKey('${n}')">${n}</button>`).join('')}
+                        <button class="keypad-btn" style="grid-column: span 2; font-size:0.8rem" onclick="clearKey()">EFFACER</button>
+                    </div>
+                `;
+            } else if (step.type === 'radio_tuner') {
+                zone.innerHTML = `
+                    <div class="tuner-container">
+                        <div class="tuner-readout" id="tuner-val">90.0 MHz</div>
+                        <input type="range" min="88.0" max="108.0" step="0.1" value="90.0" class="tuner-slider" id="tuner-range" oninput="updateTuner(this.value)">
+                    </div>
+                `;
+            } else if (step.type === 'stealth_walk') {
+                zone.innerHTML = `
+                    <div style="font-size:0.8rem; color:var(--text-secondary)">Stabilité du mouvement :</div>
+                    <div class="stealth-gauge-bg">
+                        <div class="stealth-gauge-fill" id="stealth-fill"></div>
+                    </div>
+                    <div id="stealth-status" style="font-size:0.75rem; color:var(--success); font-family:var(--font-mono)">Immobile - Zone Sécurisée</div>
+                `;
+                initStealthSensors();
+            } else if (step.type === 'qte_reflex') {
+                zone.innerHTML = `
+                    <div style="font-size:0.8rem; color:var(--text-secondary)">Alignement cible (${state.qteHits}/3) :</div>
+                    <div class="qte-box">
+                        <div class="qte-target"></div>
+                        <div class="qte-cursor" id="qte-cursor"></div>
+                    </div>
+                `;
+                initQTEGame();
+            } else if (step.type === 'final_pass') {
+                zone.innerHTML = `
+                    <input type="text" id="input-code" placeholder="CLÉ D'ACCRÉDITATION" class="input-text">
                 `;
             }
 
-            // 2. Champ Réponse Énigme
-            if (step.reponseEnigme) {
-                htmlAction += `
-                    <input type="text" id="enigme-input" placeholder="RÉPONSE À L'ÉNIGME" class="input-field">
-                `;
-            }
-
-            // 3. Champ Code Registre Final
-            if (step.codeRegistre) {
-                htmlAction += `
-                    <input type="text" id="pass-input" placeholder="CODE DU REGISTRE FINAL" class="input-field">
-                `;
-            }
-
-            // 4. Bouton Principal
-            htmlAction += `
-                <button class="btn" onclick="validerEtape()">Valider l'Étape</button>
-            `;
-
-            document.getElementById('action-area').innerHTML = htmlAction;
-            document.getElementById('status').innerText = "Signal GPS actif";
+            document.getElementById('main-btn').innerText = "Valider la Position & l'Étape";
+            document.getElementById('main-btn').className = "btn-action";
         }
 
-        function validerEtape() {
-            const step = missionRians[etapeActuelle];
+        function pressKey(num) {
+            sounds.playBip(900, 'sine', 0.05);
+            const input = document.getElementById('input-code');
+            if (input && input.value.length < 6) input.value += num;
+        }
 
-            // Contrôle réponse énigme
-            if (step.reponseEnigme) {
-                const input = document.getElementById('enigme-input');
-                const reponse = input ? input.value.trim().toUpperCase() : '';
-                if (reponse !== step.reponseEnigme) {
-                    alert("RÉPONSE INCORRECTE\nÉcoute attentivement le message audio.");
-                    return;
-                }
+        function clearKey() {
+            sounds.playBip(400, 'sine', 0.05);
+            const input = document.getElementById('input-code');
+            if (input) input.value = '';
+        }
+
+        function updateTuner(val) {
+            sounds.playBip(100 + (val * 8), 'triangle', 0.03);
+            document.getElementById('tuner-val').innerText = `${parseFloat(val).toFixed(1)} MHz`;
+        }
+
+        let qteAnim = null;
+        let qtePos = 0;
+        let qteDir = 2;
+
+        function initQTEGame() {
+            const cursor = document.getElementById('qte-cursor');
+            function animate() {
+                if (!cursor) return;
+                qtePos += qteDir;
+                if (qtePos >= 98 || qtePos <= 0) qteDir *= -1;
+                cursor.style.left = qtePos + '%';
+                qteAnim = requestAnimationFrame(animate);
             }
+            if (qteAnim) cancelAnimationFrame(qteAnim);
+            qteAnim = requestAnimationFrame(animate);
+        }
 
-            // Contrôle code registre
-            if (step.codeRegistre) {
-                const input = document.getElementById('pass-input');
-                const code = input ? input.value.trim().toUpperCase() : '';
-                if (code !== step.codeRegistre) {
-                    alert("CODE FINAL INCORRECT\nVérifie le mot de passe écrit sur le registre papier.");
-                    return;
-                }
+        function initStealthSensors() {
+            if (window.DeviceMotionEvent) {
+                window.addEventListener('devicemotion', (e) => {
+                    const fill = document.getElementById('stealth-fill');
+                    const status = document.getElementById('stealth-status');
+                    if (!fill) return;
+
+                    const acc = e.accelerationIncludingGravity;
+                    if (!acc) return;
+                    const totalAcc = Math.abs(acc.x || 0) + Math.abs(acc.y || 0) + Math.abs(acc.z || 0);
+
+                    if (totalAcc > 22) {
+                        fill.style.width = "100%";
+                        fill.style.background = "var(--danger)";
+                        status.innerText = "⚠️ DÉTECTION ! RALENTISSEZ IMMEDIATEMENT !";
+                        status.style.color = "var(--danger)";
+                        sounds.playError();
+                        if ("vibrate" in navigator) navigator.vibrate(150);
+                    } else {
+                        fill.style.width = "25%";
+                        fill.style.background = "var(--success)";
+                        status.innerText = "OK - Allure Furtive";
+                        status.style.color = "var(--success)";
+                    }
+                });
             }
+        }
 
-            // Test GPS ou Mode Test
-            if (isTestMode) {
-                traiterSucces();
+        function actionPrincipale() {
+            sounds.init();
+            startTimer();
+
+            if (state.etape >= mission.length) {
+                location.reload();
                 return;
             }
+
+            const step = mission[state.etape];
+
+            // Validation spécifique au type d'interaction
+            if (step.type === 'audio_riddle' || step.type === 'digicode' || step.type === 'final_pass') {
+                const input = document.getElementById('input-code');
+                const val = input ? input.value.trim().toUpperCase() : '';
+                if (val !== step.reponse) {
+                    sounds.playError();
+                    alert("RÉPONSE INCORRECTE");
+                    return;
+                }
+            } else if (step.type === 'radio_tuner') {
+                const val = parseFloat(document.getElementById('tuner-range').value);
+                if (Math.abs(val - step.targetFreq) > 0.2) {
+                    sounds.playError();
+                    alert("FRÉQUENCE NON SYNCHRONISÉE (Ajustez vers 104.2 MHz)");
+                    return;
+                }
+            } else if (step.type === 'qte_reflex') {
+                if (qtePos >= 40 && qtePos <= 60) {
+                    state.qteHits++;
+                    sounds.playSuccess();
+                    if (state.qteHits < 3) {
+                        document.getElementById('step-body').innerText = `Tir réussi (${state.qteHits}/3) ! Recommencez !`;
+                        return;
+                    }
+                } else {
+                    sounds.playError();
+                    alert("RATÉ ! Visez la zone verte au centre.");
+                    return;
+                }
+            }
+
+            // Vérification GPS
+            if (state.isTestMode) {
+                validerSuccesEtape();
+                return;
+            }
+
+            document.getElementById('status-footer').innerText = "● Acquisition des coordonnées satellites...";
 
             if (!navigator.geolocation) {
-                alert("Erreur : Géolocalisation indisponible sur cet appareil.");
+                alert("GPS non disponible.");
                 return;
             }
 
-            document.getElementById('status').innerText = "Vérification des coordonnées GPS...";
-
             navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const distance = calculerDistance(
-                        position.coords.latitude, 
-                        position.coords.longitude, 
-                        step.lat, 
-                        step.lng
-                    );
+                (pos) => {
+                    const R = 6371000;
+                    const dLat = (pos.coords.latitude - step.lat) * Math.PI / 180;
+                    const dLon = (pos.coords.longitude - step.lng) * Math.PI / 180;
+                    const a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+                              Math.cos(step.lat*Math.PI/180)*Math.cos(pos.coords.latitude*Math.PI/180)*
+                              Math.sin(dLon/2)*Math.sin(dLon/2);
+                    const dist = Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
 
-                    if (distance <= RAYON_VALIDE) {
-                        traiterSucces();
+                    if (dist <= RAYON_GPS) {
+                        validerSuccesEtape();
                     } else {
-                        alert(`POSITION TROP ÉLOIGNÉE\nDistance actuelle : ${distance}m.\nRapproche-toi à moins de ${RAYON_VALIDE}m.`);
-                        document.getElementById('status').innerText = `Cible à ${distance}m (Périmètre non atteint)`;
+                        sounds.playError();
+                        alert(`PERIMETRE NON ATTEINT !\nDistance actuelle : ${dist} mètres.\nRapproche-toi à moins de ${RAYON_GPS}m.`);
+                        document.getElementById('status-footer').innerText = `● Cible à ${dist}m (Éloigné)`;
                     }
                 },
-                (error) => {
-                    alert("Erreur GPS : Veuillez activer la localisation dans les réglages de votre téléphone.");
-                    document.getElementById('status').innerText = "Erreur : Signal GPS introuvable";
+                (err) => {
+                    sounds.playError();
+                    alert("Erreur GPS : Veuillez activer la localisation.");
                 },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                { enableHighAccuracy: true, timeout: 10000 }
             );
         }
 
-        function traiterSucces() {
-            const step = missionRians[etapeActuelle];
+        function validerSuccesEtape() {
+            sounds.playSuccess();
+            if ("vibrate" in navigator) navigator.vibrate([100, 50, 100]);
 
-            if (etapeActuelle === missionRians.length - 1) {
-                finDeMission();
-            } else {
-                document.getElementById('step-title').innerText = "Accès Accordé";
-                document.getElementById('terminal-text').innerText = step.msgSucces;
-                etapeActuelle++;
-                updateProgressBar();
+            const step = mission[state.etape];
+            document.getElementById('step-title').innerText = "Accréditation Accordée";
+            document.getElementById('step-body').innerText = step.msgSucces;
+            document.getElementById('interactive-zone').innerHTML = '';
 
-                document.getElementById('action-area').innerHTML = `
-                    <button class="btn btn-success" onclick="afficherEtape()">Étape Suivante →</button>
+            state.etape++;
+            renderProgress();
+
+            if (state.etape >= mission.length) {
+                clearInterval(state.timerInterval);
+                document.getElementById('step-title').innerText = "🏆 OPÉRATION ACCOMPLIE";
+                document.getElementById('step-body').innerHTML = `
+                    <strong>Rapport Final d'Agent B2B</strong><br><br>
+                    Secteur : Rians (18220)<br>
+                    Chrono Final : ${document.getElementById('metric-timer').innerText}<br>
+                    Badge : <em>Pionnier de Rigomagus</em><br><br>
+                    Félicitations Agent, toutes les balises du secteur sont sécurisées.
                 `;
-                document.getElementById('status').innerText = "Étape validée avec succès";
+                document.getElementById('main-btn').innerText = "Nouvelle Session";
+                document.getElementById('main-btn').className = "btn-action btn-success";
+            } else {
+                document.getElementById('main-btn').innerText = "Étape Suivante →";
+                document.getElementById('main-btn').className = "btn-action btn-success";
+                document.getElementById('main-btn').onclick = () => {
+                    renderEtape();
+                    document.getElementById('main-btn').onclick = actionPrincipale;
+                };
             }
         }
 
-        function finDeMission() {
-            etapeActuelle = missionRians.length;
-            updateProgressBar();
-
-            document.getElementById('step-title').innerText = "Mission Accomplie !";
-            document.getElementById('terminal-text').innerHTML = `
-                Secteur : Rians (18220)<br>
-                Énigme audio : Décodée<br>
-                Registre physique : Signé<br><br>
-                Félicitations Agent, l'Infiltration est un succès total !
-            `;
-
-            document.getElementById('action-area').innerHTML = `
-                <button class="btn" onclick="location.reload()">Recommencer la Mission</button>
-            `;
-            document.getElementById('status').innerText = "Session clôturée";
+        function demarrerMission() {
+            renderEtape();
         }
     </script>
 </body>
