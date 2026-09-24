@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#070a14">
-    <title>LE MURMURE — Plateforme B2B d'Infiltration Urbaine</title>
+    <title>LE MURMURE — Infiltration Urbaine à Rians</title>
     <style>
         :root {
             --bg-dark: #070a14;
@@ -24,13 +24,7 @@
             --font-mono: "SF Mono", "Roboto Mono", monospace;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--bg-dark);
@@ -44,562 +38,103 @@
             overflow-x: hidden;
         }
 
-        /* VUES */
-        .view {
-            width: 100%;
-            max-width: 480px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            transition: opacity 0.3s ease;
-        }
+        .view { width: 100%; max-width: 480px; min-height: 100vh; display: flex; flex-direction: column; padding: 20px; transition: opacity 0.3s ease; }
+        .hidden { display: none !important; }
 
-        .hidden {
-            display: none !important;
-        }
+        .landing-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 24px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+        .brand-logo { font-size: 1rem; font-weight: 800; letter-spacing: 1.5px; background: linear-gradient(135deg, #fff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 8px; }
+        .b2b-badge { font-size: 0.65rem; font-family: var(--font-mono); background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); padding: 4px 8px; border-radius: 99px; font-weight: 700; }
 
-        /* LANDING PAGE STYLES */
-        .landing-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0 24px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 24px;
-        }
+        .hero-section { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; }
+        .hero-tag { align-self: flex-start; font-size: 0.7rem; font-family: var(--font-mono); color: var(--accent); background: rgba(37, 99, 235, 0.15); border: 1px solid rgba(37, 99, 235, 0.3); padding: 6px 12px; border-radius: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-title { font-size: 2.1rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; }
+        .hero-title span { background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
 
-        .brand-logo {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .hof-preview { background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 20px; }
+        .hof-title { font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px; }
+        .hof-list { display: flex; flex-direction: column; gap: 6px; }
+        .hof-item { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.8rem; padding: 6px 10px; background: rgba(7, 10, 20, 0.5); border-radius: 6px; }
 
-        .b2b-badge {
-            font-size: 0.65rem;
-            font-family: var(--font-mono);
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--accent);
-            padding: 4px 8px;
-            border-radius: 99px;
-            font-weight: 700;
-        }
+        .cta-container { margin-top: auto; padding-bottom: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .btn-primary { width: 100%; padding: 18px; background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px var(--primary-glow); display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        .hero-tag {
-            align-self: flex-start;
-            font-size: 0.7rem;
-            font-family: var(--font-mono);
-            color: var(--accent);
-            background: rgba(37, 99, 235, 0.15);
-            border: 1px solid rgba(37, 99, 235, 0.3);
-            padding: 6px 12px;
-            border-radius: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .hero-title {
-            font-size: 2.1rem;
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.5px;
-        }
-
-        .hero-title span {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-
-        .stat-box {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 12px 8px;
-            text-align: center;
-        }
-
-        .stat-num {
-            font-family: var(--font-mono);
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 2px;
-        }
-
-        .stat-txt {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-
-        .features-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        .feature-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px;
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-
-        .feature-icon {
-            background: rgba(56, 189, 248, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            color: var(--accent);
-            padding: 10px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .feature-content h4 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .feature-content p {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-
-        .cta-container {
-            margin-top: auto;
-            padding-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px var(--primary-glow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .btn-primary:active {
-            transform: scale(0.98);
-        }
-
-        .footer-note {
-            text-align: center;
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-        }
-
-        /* APP GAMEPLAY STYLES (INTÉGRÉ) */
-        .app-shell {
-            width: 100%;
-            max-width: 440px;
-            margin: auto;
-            background: var(--surface);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: relative;
-        }
-
-        .toast-banner {
-            position: absolute;
-            top: 12px;
-            left: 16px;
-            right: 16px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 100;
-            transform: translateY(-130%);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-
+        .app-shell { width: 100%; max-width: 440px; margin: auto; background: var(--surface); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; gap: 20px; position: relative; }
+        .toast-banner { position: absolute; top: 12px; left: 16px; right: 16px; padding: 12px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; justify-content: space-between; z-index: 100; transform: translateY(-130%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         .toast-banner.show { transform: translateY(0); }
         .toast-danger { background: rgba(239, 68, 68, 0.95); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
         .toast-success { background: rgba(16, 185, 129, 0.95); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
 
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 14px;
-        }
+        .app-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+        .app-title { font-size: 1rem; font-weight: 800; letter-spacing: 1px; color: #fff; display: flex; align-items: center; gap: 8px; }
 
-        .app-title {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .metrics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .metric-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; }
+        .metric-label { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600; margin-bottom: 2px; }
+        .metric-value { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: #fff; }
 
-        .metrics-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
+        .progress-bar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; margin-top: 4px; }
+        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.4s ease; }
 
-        .metric-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 10px 14px;
-        }
+        .content-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+        .step-heading { font-size: 1rem; font-weight: 700; }
+        .step-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
 
-        .metric-label {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .metric-value {
-            font-family: var(--font-mono);
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 5px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 99px;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transition: width 0.4s ease;
-        }
-
-        .content-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .step-heading {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .step-body {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .interactive-zone {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 4px;
-        }
-
-        .audio-box {
-            background: rgba(7, 10, 20, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        audio { width: 100%; height: 34px; }
-
-        .input-text {
-            width: 100%;
-            padding: 14px;
-            background: rgba(7, 10, 20, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: #fff;
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            text-align: center;
-            letter-spacing: 2px;
-            outline: none;
-        }
-
+        .interactive-zone { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+        .input-text { width: 100%; padding: 14px; background: rgba(7, 10, 20, 0.9); border: 1px solid var(--border); border-radius: 12px; color: #fff; font-family: var(--font-mono); font-size: 1rem; text-align: center; letter-spacing: 2px; outline: none; }
         .input-text:focus { border-color: var(--border-focus); }
 
-        .digicode-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            max-width: 220px;
-            margin: 0 auto;
-        }
-
-        .keypad-btn {
-            background: rgba(22, 32, 58, 0.9);
-            border: 1px solid var(--border);
-            color: #fff;
-            font-family: var(--font-mono);
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 12px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .keypad-btn:active { background: var(--primary); }
-
-        .tuner-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            background: rgba(7, 10, 20, 0.9);
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .tuner-readout {
-            font-family: var(--font-mono);
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .tuner-slider { width: 100%; accent-color: var(--accent); cursor: pointer; }
-
-        .stealth-gauge-bg {
-            width: 100%;
-            height: 14px;
-            background: #111827;
-            border-radius: 99px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .stealth-gauge-fill { height: 100%; width: 0%; transition: width 0.1s; }
-
-        .qte-box {
-            position: relative;
-            width: 100%;
-            height: 46px;
-            background: #07101e;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .qte-target {
-            position: absolute;
-            left: 40%;
-            width: 20%;
-            height: 100%;
-            background: rgba(16, 185, 129, 0.25);
-            border-left: 2px solid var(--success);
-            border-right: 2px solid var(--success);
-        }
-
-        .qte-cursor {
-            position: absolute;
-            left: 0%;
-            width: 6px;
-            height: 100%;
-            background: #fff;
-            box-shadow: 0 0 8px #fff;
-        }
-
-        .btn-action {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 16px var(--primary-glow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
+        .btn-action { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px var(--primary-glow); display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-success { background: linear-gradient(135deg, var(--success) 0%, #059669 100%); }
 
-        .app-footer-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            padding-top: 4px;
-        }
-
-        .link-back {
-            color: var(--accent);
-            text-decoration: none;
-            cursor: pointer;
-        }
+        .app-footer-nav { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-secondary); padding-top: 4px; }
+        .link-back { color: var(--accent); text-decoration: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- ========================================== -->
-    <!-- VUE 1 : LANDING PAGE B2B ULTRA PRO         -->
-    <!-- ========================================== -->
+    <!-- VUE 1 : ACCUEIL & HALL OF FAME -->
     <div id="view-landing" class="view">
         <div class="landing-header">
-            <div class="brand-logo">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
-                LE MURMURE
-            </div>
-            <div class="b2b-badge">ESPACE B2B & O.T.</div>
+            <div class="brand-logo">LE MURMURE</div>
+            <div class="b2b-badge">RIANS (18220)</div>
         </div>
 
         <div class="hero-section">
-            <div class="hero-tag">SaaS d'Infiltration Territoriale</div>
-            <h1 class="hero-title">Valorisez votre patrimoine par <span>l'espionnage grandeur nature.</span></h1>
-            <p class="hero-desc">
-                Transformez instantanément votre commune ou vos espaces touristiques en un plateau de jeu d'enquête cinématique. 100% autonome, sans application à télécharger.
-            </p>
+            <div class="hero-tag">Infiltration Territoriale</div>
+            <h1 class="hero-title">Partez à la découverte de <span>Rians grandeur nature.</span></h1>
+            <p class="hero-desc">Validez les 6 étapes historiques et municipales pour inscrire votre nom au sommet du classement mondial.</p>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-box">
-                <div class="stat-num">0%</div>
-                <div class="stat-txt">Téléchargement</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-num">24/7</div>
-                <div class="stat-txt">Autonomie</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-num">100%</div>
-                <div class="stat-txt">Sur-mesure</div>
-            </div>
-        </div>
-
-        <div class="features-container">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                </div>
-                <div class="feature-content">
-                    <h4>Zéro Infrastructure Lourde</h4>
-                    <p>Puces NFC discrètes, QR codes étanches ou balises GPS : déployez un parcours complet en quelques heures.</p>
-                </div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                </div>
-                <div class="feature-content">
-                    <h4>Capteurs Natifs Intégrés</h4>
-                    <p>Accéléromètre pour la marche furtive, synthétiseur audio radio et décodage d'indices immersifs.</p>
-                </div>
+        <div class="hof-preview">
+            <div class="hof-title">🏆 Top Agents (Hall of Fame Mondial)</div>
+            <div class="hof-list" id="landing-hof">
+                <div class="hof-item"><span>Connexion au serveur...</span><span>--:--</span></div>
             </div>
         </div>
 
         <div class="cta-container">
             <button class="btn-primary" onclick="switchToApp()">
-                <span>Lancer la Démo Live (Rians 18)</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <span>Démarrer l'Infiltration</span>
             </button>
-            <div class="footer-note">Solution validée pour Offices de Tourisme & Collectivités.</div>
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- VUE 2 : APPLICATION WEB / GAME ENGINE      -->
-    <!-- ========================================== -->
+    <!-- VUE 2 : JEU -->
     <div id="view-app" class="view hidden" style="justify-content: center;">
         <div class="app-shell">
-            <div id="toast-banner" class="toast-banner toast-danger">
-                <span id="toast-msg">Notification</span>
-            </div>
+            <div id="toast-banner" class="toast-banner toast-danger"><span id="toast-msg">Notification</span></div>
 
             <div class="app-header">
-                <div class="app-title">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
-                    LE MURMURE — LIVE
-                </div>
-                <a class="link-back" onclick="switchToLanding()">← Accueil B2B</a>
+                <div class="app-title">LE MURMURE — LIVE</div>
+                <a class="link-back" onclick="switchToLanding()">← Accueil</a>
             </div>
 
             <div class="metrics-row">
                 <div class="metric-card">
                     <div class="metric-label">Progression</div>
                     <div class="metric-value" id="metric-progress">0 / 6</div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" id="progress-bar"></div>
-                    </div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-label">Chronomètre</div>
@@ -609,59 +144,74 @@
 
             <div class="content-card">
                 <div class="step-heading" id="step-title">Initialisation...</div>
-                <div class="step-body" id="step-body">Chargement du secteur tactique...</div>
+                <div class="step-body" id="step-body">Chargement du secteur...</div>
                 <div class="interactive-zone" id="interactive-zone"></div>
             </div>
 
-            <button class="btn-action" id="main-btn" onclick="actionPrincipale()">
-                Valider l'Étape
-            </button>
+            <button class="btn-action" id="main-btn" onclick="actionPrincipale()">Valider l'Étape</button>
 
             <div class="app-footer-nav">
-                <span id="status-footer">● Mode simulation B2B actif</span>
+                <span id="status-footer">● Mode cloud mondial actif</span>
             </div>
         </div>
     </div>
 
     <script>
+        // REMPLACE CETTE URL PAR TON URL MOCKAPI.IO
+        const API_URL = 'VOTRE_URL_MOCKAPI_ICI';
+
+        async function fetchHallOfFame() {
+            const hofContainer = document.getElementById('landing-hof');
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (!data || data.length === 0) {
+                    hofContainer.innerHTML = `<div class="hof-item"><span>Aucun agent classé</span><span>--:--</span></div>`;
+                    return;
+                }
+
+                // Tri du plus rapide au plus lent
+                data.sort((a, b) => a.chrono.localeCompare(b.chrono));
+                const top5 = data.slice(0, 5);
+
+                hofContainer.innerHTML = top5.map((item, index) => `
+                    <div class="hof-item">
+                        <span>#${index + 1} ${item.pseudo}</span>
+                        <span>${item.chrono}</span>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error("Erreur de liaison API", err);
+                hofContainer.innerHTML = `<div class="hof-item"><span>Erreur de connexion réseau</span><span>--:--</span></div>`;
+            }
+        }
+
+        async function saveScoreToCloud(pseudo, chrono) {
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pseudo: pseudo, chrono: chrono })
+                });
+            } catch (err) {
+                console.error("Erreur d'enregistrement", err);
+            }
+        }
+
+        window.onload = fetchHallOfFame;
+
         function switchToApp() {
             document.getElementById('view-landing').classList.add('hidden');
             document.getElementById('view-app').classList.remove('hidden');
-            if (state.etape === 0 && !state.startTime) {
-                renderEtape();
-            }
+            if (state.etape === 0 && !state.startTime) { renderEtape(); }
         }
 
         function switchToLanding() {
             document.getElementById('view-app').classList.add('hidden');
             document.getElementById('view-landing').classList.remove('hidden');
+            fetchHallOfFame();
         }
-
-        class SoundEngine {
-            constructor() { this.ctx = null; }
-            init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
-            playBip(freq = 800, type = 'sine', duration = 0.08) {
-                this.init();
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.type = type;
-                osc.frequency.value = freq;
-                gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start();
-                osc.stop(this.ctx.currentTime + duration);
-            }
-            playSuccess() {
-                this.playBip(523, 'sine', 0.1);
-                setTimeout(() => this.playBip(659, 'sine', 0.1), 100);
-                setTimeout(() => this.playBip(783, 'sine', 0.2), 200);
-            }
-            playError() { this.playBip(220, 'sawtooth', 0.25); }
-        }
-
-        const sounds = new SoundEngine();
 
         function showToast(msg, isSuccess = false) {
             const toast = document.getElementById('toast-banner');
@@ -671,41 +221,15 @@
         }
 
         const mission = [
-            {
-                id: 1, nom: "Étape 1 : Parvis Saint-Christophe", lat: 47.1853, lng: 2.6142, type: "audio_riddle",
-                audioFile: "enigme1.mp3", reponse: "CLOCHE",
-                description: "Rejoins le parvis. Intercepte l'enregistrement audio et saisis le mot-clé d'accès.",
-                msgSucces: "Canal audio décodé ! Descends la rue vers le ruisseau."
-            },
-            {
-                id: 2, nom: "Étape 2 : Le Pont de l'Ouatier", lat: 47.1859, lng: 2.6152, type: "stealth_walk",
-                description: "Traverse le pont en maintenant le téléphone stable. La jauge ne doit pas saturer.",
-                msgSucces: "Traversée furtive réussie ! Remonte vers la Mairie."
-            },
-            {
-                id: 3, nom: "Étape 3 : Serveur de la Mairie", lat: 47.1848, lng: 2.6133, type: "digicode", reponse: "1842",
-                description: "Observe la date gravée au-dessus du portail et entre le code d'accès.",
-                msgSucces: "Accès au serveur accordé. Cap vers le cimetière."
-            },
-            {
-                id: 4, nom: "Étape 4 : Les Grilles du Cimetière", lat: 47.1872, lng: 2.6120, type: "radio_tuner", targetFreq: 104.2,
-                description: "Calibre le récepteur radio sur la fréquence clandestine (104.2 MHz).",
-                msgSucces: "Fréquence synchronisée ! Rapproche-toi du stade."
-            },
-            {
-                id: 5, nom: "Étape 5 : Le Stade de Football", lat: 47.1865, lng: 2.6180, type: "qte_reflex",
-                description: "Neutralise les projecteurs : appuie au moment exact où le curseur traverse la zone verte (3 fois).",
-                msgSucces: "Projecteurs désactivés ! Dernière étape à l'Usine Rians."
-            },
-            {
-                id: 6, nom: "Étape 6 : Boutique Usine Rians", lat: 47.1820, lng: 2.6064, type: "final_pass", reponse: "TRIBALLAT",
-                description: "Trouve la boîte dissimulée et entre la clé d'accréditation finale.",
-                msgSucces: "OPÉRATION VALIDÉE ! Attestation d'agent délivrée."
-            }
+            { id: 1, nom: "Étape 1 : Parvis Saint-Christophe", description: "Rejoins l'église. Entre le nom de l'édifice visible sur le panneau.", reponse: "EGLISE", msgSucces: "Balise 1 validée ! Descends vers le ruisseau." },
+            { id: 2, nom: "Étape 2 : Le Pont de l'Ouatier", description: "Localise la balise sous la rambarde. Entre le mot inscrit en secret.", reponse: "OUATIER", msgSucces: "Balise 2 piratée ! Remonte vers la Mairie." },
+            { id: 3, nom: "Étape 3 : Serveur de la Mairie", description: "Infiltre le parvis de la Mairie. Entre le nombre de lettres du village (5).", reponse: "RIANS", msgSucces: "Archives interceptées. Fonce au cimetière." },
+            { id: 4, nom: "Étape 4 : Les Grilles du Cimetière", description: "Inspectez les abords des grilles. Quel métal compose la structure ?", reponse: "FER", msgSucces: "Fréquence extraite. Rejoignez le stade !" },
+            { id: 5, nom: "Étape 5 : Le Stade de Football", description: "Positionnez-vous devant l'entrée du stade. Quel sport est pratiqué ici ?", reponse: "FOOTBALL", msgSucces: "Coordonnées de l'usine récupérées !" },
+            { id: 6, nom: "Étape 6 : Boutique Usine Rians", description: "Dernière étape devant les grilles de la boutique. Quel produit laitier fait la gloire de Rians ?", reponse: "YAOURT", msgSucces: "INFILTRATION RÉUSSIE !" }
         ];
 
-        let state = { etape: 0, startTime: null, timerInterval: null, isTestMode: true, qteHits: 0 };
-        const RAYON_GPS = 30;
+        let state = { etape: 0, startTime: null, timerInterval: null };
 
         function updateTimer() {
             if (!state.startTime) return;
@@ -730,91 +254,21 @@
             document.getElementById('step-body').innerText = step.description;
 
             const zone = document.getElementById('interactive-zone');
-            zone.innerHTML = '';
-
-            if (step.type === 'audio_riddle' || step.type === 'final_pass') {
-                zone.innerHTML = `<div class="audio-box"><div style="font-size:0.7rem; color:var(--accent); margin-bottom:6px">CANAL AUDIO</div><audio controls src="${step.audioFile}"></audio></div><input type="text" id="input-code" placeholder="MOT-CLÉ" class="input-text">`;
-            } else if (step.type === 'digicode') {
-                zone.innerHTML = `<input type="text" id="input-code" readonly placeholder="----" class="input-text"><div class="digicode-grid">${[1,2,3,4,5,6,7,8,9,0].map(n=>`<button class="keypad-btn" onclick="pressKey('${n}')">${n}</button>`).join('')}<button class="keypad-btn" style="grid-column: span 2; font-size:0.75rem" onclick="clearKey()">EFFACER</button></div>`;
-            } else if (step.type === 'radio_tuner') {
-                zone.innerHTML = `<div class="tuner-container"><div class="tuner-readout" id="tuner-val">90.0 MHz</div><input type="range" min="88.0" max="108.0" step="0.1" value="90.0" class="tuner-slider" id="tuner-range" oninput="updateTuner(this.value)"></div>`;
-            } else if (step.type === 'stealth_walk') {
-                zone.innerHTML = `<div style="font-size:0.75rem; color:var(--text-secondary)">Stabilité du mouvement :</div><div class="stealth-gauge-bg"><div class="stealth-gauge-fill" id="stealth-fill" style="background:var(--success); width:25%;"></div></div><div id="stealth-status" style="font-size:0.7rem; color:var(--success); font-family:var(--font-mono)">Allure Furtive OK</div>`;
-                initStealthSensors();
-            } else if (step.type === 'qte_reflex') {
-                zone.innerHTML = `<div style="font-size:0.75rem; color:var(--text-secondary)">Cible (${state.qteHits}/3) :</div><div class="qte-box"><div class="qte-target"></div><div class="qte-cursor" id="qte-cursor"></div></div>`;
-                initQTEGame();
-            }
+            zone.innerHTML = `<input type="text" id="input-code" placeholder="VOTRE RÉPONSE" class="input-text">`;
 
             document.getElementById('main-btn').innerText = "Valider l'Étape";
             document.getElementById('main-btn').className = "btn-action";
         }
 
-        function pressKey(n) { sounds.playBip(900); const i = document.getElementById('input-code'); if(i && i.value.length < 6) i.value += n; }
-        function clearKey() { sounds.playBip(400); const i = document.getElementById('input-code'); if(i) i.value = ''; }
-        function updateTuner(val) { sounds.playBip(100 + (val*8), 'triangle', 0.03); document.getElementById('tuner-val').innerText = `${parseFloat(val).toFixed(1)} MHz`; }
-
-        let qteAnim = null, qtePos = 0, qteDir = 2;
-        function initQTEGame() {
-            const cursor = document.getElementById('qte-cursor');
-            function anim() {
-                if(!cursor) return;
-                qtePos += qteDir;
-                if(qtePos >= 98 || qtePos <= 0) qteDir *= -1;
-                cursor.style.left = qtePos + '%';
-                qteAnim = requestAnimationFrame(anim);
-            }
-            if(qteAnim) cancelAnimationFrame(qteAnim);
-            qteAnim = requestAnimationFrame(anim);
-        }
-
-        function initStealthSensors() {
-            if(window.DeviceMotionEvent) {
-                window.addEventListener('devicemotion', (e) => {
-                    const fill = document.getElementById('stealth-fill');
-                    const status = document.getElementById('stealth-status');
-                    if(!fill) return;
-                    const acc = e.accelerationIncludingGravity;
-                    if(!acc) return;
-                    const total = Math.abs(acc.x||0) + Math.abs(acc.y||0) + Math.abs(acc.z||0);
-                    if(total > 22) {
-                        fill.style.width = "100%"; fill.style.background = "var(--danger)";
-                        status.innerText = "⚠️ MOUVEMENT TROP BRUSQUE !"; status.style.color = "var(--danger)";
-                        sounds.playError();
-                    } else {
-                        fill.style.width = "25%"; fill.style.background = "var(--success)";
-                        status.innerText = "Allure Furtive OK"; status.style.color = "var(--success)";
-                    }
-                });
-            }
-        }
-
         function actionPrincipale() {
-            sounds.init();
             startTimer();
             if(state.etape >= mission.length) { switchToLanding(); state.etape = 0; state.startTime = null; return; }
 
             const step = mission[state.etape];
-            if(step.type === 'audio_riddle' || step.type === 'digicode' || step.type === 'final_pass') {
-                const val = document.getElementById('input-code')?.value.trim().toUpperCase() || '';
-                if(val !== step.reponse) { sounds.playError(); showToast("RÉPONSE INCORRECTE"); return; }
-            } else if(step.type === 'radio_tuner') {
-                const val = parseFloat(document.getElementById('tuner-range').value);
-                if(Math.abs(val - step.targetFreq) > 0.2) { sounds.playError(); showToast("FRÉQUENCE INCORRECTE (Visez 104.2 MHz)"); return; }
-            } else if(step.type === 'qte_reflex') {
-                if(qtePos >= 40 && qtePos <= 60) {
-                    state.qteHits++; sounds.playSuccess();
-                    if(state.qteHits < 3) { document.getElementById('step-body').innerText = `Tir réussi (${state.qteHits}/3) ! Continuez.`; return; }
-                } else { sounds.playError(); showToast("RATÉ ! Visez la zone verte."); return; }
-            }
+            const val = document.getElementById('input-code')?.value.trim().toUpperCase() || '';
+            if(val !== step.reponse) { showToast("RÉPONSE INCORRECTE"); return; }
 
-            validerSuccesEtape();
-        }
-
-        function validerSuccesEtape() {
-            sounds.playSuccess();
             showToast("ÉTAPE VALIDÉE !", true);
-            const step = mission[state.etape];
             document.getElementById('step-title').innerText = "Accréditation Accordée";
             document.getElementById('step-body').innerText = step.msgSucces;
             document.getElementById('interactive-zone').innerHTML = '';
@@ -824,14 +278,31 @@
 
             if(state.etape >= mission.length) {
                 clearInterval(state.timerInterval);
+                const finalChrono = document.getElementById('metric-timer').innerText;
+                
                 document.getElementById('step-title').innerText = "🏆 OPÉRATION ACCOMPLIE";
-                document.getElementById('step-body').innerHTML = `<strong>Rapport d'Agent validé avec succès !</strong><br><br>Chrono final : ${document.getElementById('metric-timer').innerText}<br>Badge : <em>Pionnier de Rians</em>`;
-                document.getElementById('main-btn').innerText = "Retour à l'Accueil B2B";
+                document.getElementById('step-body').innerHTML = `
+                    <strong>Rapport d'Agent validé !</strong><br>Chrono : ${finalChrono}<br><br>
+                    <input type="text" id="input-pseudo" placeholder="VOTRE PSEUDO D'AGENT" class="input-text" style="margin-top:8px">
+                `;
+                document.getElementById('main-btn').innerText = "Enregistrer mon Score Mondial";
                 document.getElementById('main-btn').className = "btn-action btn-success";
+                document.getElementById('main-btn').onclick = async () => {
+                    const pseudo = document.getElementById('input-pseudo')?.value.trim().toUpperCase() || "AGENT_X";
+                    if(!pseudo) { showToast("Entrez un pseudo !"); return; }
+
+                    showToast("Enregistrement en ligne...");
+                    await saveScoreToCloud(pseudo, finalChrono);
+                    showToast("Score publié sur le serveur mondial !", true);
+                    
+                    switchToLanding();
+                    state.etape = 0; state.startTime = null;
+                    document.getElementById('main-btn').onclick = actionPrincipale;
+                };
             } else {
                 document.getElementById('main-btn').innerText = "Étape Suivante →";
                 document.getElementById('main-btn').className = "btn-action btn-success";
-                document.getElementById('main-btn').onclick = () => { renderEtape(); document.getElementById('main-btn').onclick = actionPrincipale; };
+                document.getElementById('main-btn').onclick = () => { renderEtape(); document.getElementById('main-btn'].onclick = actionPrincipale; };
             }
         }
     </script>
