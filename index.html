@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#070a14">
-    <title>LE MURMURE — Infiltration Urbaine à Rians</title>
+    <title>LE MURMURE — Solution SaaS d'Infiltration Territoriale pour Mairies & Collectivités</title>
     <style>
         :root {
             --bg-dark: #070a14;
-            --bg-gradient: radial-gradient(at 50% 0%, rgba(37, 99, 235, 0.18) 0px, transparent 60%), radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
-            --surface: rgba(13, 20, 38, 0.85);
-            --surface-card: rgba(22, 32, 58, 0.65);
+            --bg-gradient: radial-gradient(at 50% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 60%), radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
+            --surface: rgba(13, 20, 38, 0.9);
+            --surface-card: rgba(22, 32, 58, 0.7);
             --border: rgba(255, 255, 255, 0.1);
             --border-focus: #38bdf8;
             --primary: #2563eb;
@@ -24,7 +24,7 @@
             --font-mono: "SF Mono", "Roboto Mono", monospace;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--bg-dark);
@@ -41,25 +41,30 @@
         .view { width: 100%; max-width: 480px; min-height: 100vh; display: flex; flex-direction: column; padding: 20px; transition: opacity 0.3s ease; }
         .hidden { display: none !important; }
 
-        .landing-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 24px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-        .brand-logo { font-size: 1rem; font-weight: 800; letter-spacing: 1.5px; background: linear-gradient(135deg, #fff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 8px; }
-        .b2b-badge { font-size: 0.65rem; font-family: var(--font-mono); background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); padding: 4px 8px; border-radius: 99px; font-weight: 700; }
+        /* --- VUE B2B LANDING --- */
+        .b2b-nav { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+        .b2b-logo { font-size: 0.95rem; font-weight: 800; letter-spacing: 1.5px; background: linear-gradient(135deg, #fff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .b2b-tag { font-size: 0.6rem; font-family: var(--font-mono); background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); padding: 4px 8px; border-radius: 99px; font-weight: 700; text-transform: uppercase; }
 
-        .hero-section { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; }
-        .hero-tag { align-self: flex-start; font-size: 0.7rem; font-family: var(--font-mono); color: var(--accent); background: rgba(37, 99, 235, 0.15); border: 1px solid rgba(37, 99, 235, 0.3); padding: 6px 12px; border-radius: 8px; text-transform: uppercase; letter-spacing: 1px; }
-        .hero-title { font-size: 2.1rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; }
-        .hero-title span { background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
+        .b2b-hero { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+        .b2b-badge-pill { align-self: flex-start; font-size: 0.65rem; font-family: var(--font-mono); color: var(--accent); background: rgba(37, 99, 235, 0.15); border: 1px solid rgba(37, 99, 235, 0.3); padding: 6px 12px; border-radius: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .b2b-title { font-size: 1.85rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; }
+        .b2b-title span { background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .b2b-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
 
-        .hof-preview { background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 20px; }
-        .hof-title { font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px; }
-        .hof-list { display: flex; flex-direction: column; gap: 6px; }
-        .hof-item { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.8rem; padding: 8px 12px; background: rgba(7, 10, 20, 0.5); border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
+        .b2b-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .b2b-feature-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 4px; }
+        .b2b-feature-title { font-size: 0.85rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px; }
+        .b2b-feature-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4; }
 
-        .cta-container { margin-top: auto; padding-bottom: 20px; display: flex; flex-direction: column; gap: 12px; }
-        .btn-primary { width: 100%; padding: 18px; background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px var(--primary-glow); display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.1s; }
-        .btn-primary:active { transform: scale(0.98); }
+        .b2b-cta-box { background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.25); border-radius: 14px; padding: 16px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .b2b-cta-box h3 { font-size: 0.9rem; font-weight: 700; color: #fff; }
+        .b2b-cta-box p { font-size: 0.8rem; color: var(--text-secondary); }
 
+        .btn-b2b { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%); color: #fff; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px var(--primary-glow); display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.1s; }
+        .btn-b2b:active { transform: scale(0.98); }
+
+        /* --- VUE APPLICATION JEU --- */
         .app-shell { width: 100%; max-width: 440px; margin: auto; background: var(--surface); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; gap: 20px; position: relative; }
         
         .toast-banner { position: absolute; top: -50px; left: 0; right: 0; padding: 12px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
@@ -95,41 +100,47 @@
 </head>
 <body>
 
-    <!-- VUE 1 : ACCUEIL & HALL OF FAME B2B -->
+    <!-- VUE 1 : LANDING PAGE B2B POUR MAIRIES & COLLECTIVITÉS -->
     <div id="view-landing" class="view">
-        <div class="landing-header">
-            <div class="brand-logo">LE MURMURE</div>
-            <div class="b2b-badge">RIANS (18220)</div>
+        <div class="b2b-nav">
+            <div class="b2b-logo">LE MURMURE B2B</div>
+            <div class="b2b-tag">Solutions Mairies</div>
         </div>
 
-        <div class="hero-section">
-            <div class="hero-tag">Infiltration Territoriale</div>
-            <h1 class="hero-title">Partez à la découverte de <span>Rians grandeur nature.</span></h1>
-            <p class="hero-desc">Validez les 6 étapes historiques et municipales pour inscrire votre nom au sommet du classement mondial en ligne.</p>
+        <div class="b2b-hero">
+            <div class="b2b-badge-pill">SaaS Territoires & Tourisme</div>
+            <h1 class="b2b-title">Gamifiez le patrimoine de <span>votre commune.</span></h1>
+            <p class="b2b-desc">Déployez en marque blanche des parcours d'infiltration et de découverte historique clés en main pour booster l'attractivité de votre ville et engager vos administrés.</p>
         </div>
 
-        <div class="hof-preview">
-            <div class="hof-title">🏆 Top Agents (Classement Mondial)</div>
-            <div class="hof-list" id="landing-hof">
-                <div class="hof-item"><span>Connexion au serveur...</span><span>--:--</span></div>
+        <div class="b2b-features">
+            <div class="b2b-feature-card">
+                <div class="b2b-feature-title">🏛️ Valorisation du Patrimoine</div>
+                <div class="b2b-feature-desc">Mettez en avant vos monuments, votre mairie et vos spécificités locales à travers une narration immersive.</div>
+            </div>
+            <div class="b2b-feature-card">
+                <div class="b2b-feature-title">📈 Engagement Citoyen & Touristique</div>
+                <div class="b2b-feature-desc">Dynamisez le commerce local et offrez une activité ludique aux familles et touristes sans application lourde à télécharger.</div>
             </div>
         </div>
 
-        <div class="cta-container">
-            <button class="btn-primary" onclick="switchToApp()">
-                <span>Démarrer l'Infiltration</span>
+        <div class="b2b-cta-box">
+            <h3>Testez la Démo Live</h3>
+            <p>Découvrez l'expérience déployée pour la commune de <strong>Rians (18220)</strong> avec son classement mondial en temps réel.</p>
+            <button class="btn-b2b" onclick="switchToApp()">
+                <span>Lancer la Démo (Rians)</span>
             </button>
         </div>
     </div>
 
-    <!-- VUE 2 : JEU INTERACTIF -->
+    <!-- VUE 2 : JEU INTERACTIF (RIANS) -->
     <div id="view-app" class="view hidden" style="justify-content: center;">
         <div class="app-shell">
             <div id="toast-banner" class="toast-banner toast-danger"><span id="toast-msg">Notification</span></div>
 
             <div class="app-header">
                 <div class="app-title">LE MURMURE — LIVE</div>
-                <a class="link-back" onclick="switchToLanding()">← Accueil</a>
+                <a class="link-back" onclick="switchToLanding()">← Accueil B2B</a>
             </div>
 
             <div class="metrics-row">
@@ -162,31 +173,6 @@
         // URL configurée avec ton instance MockAPI en ligne
         const API_URL = 'https://6ab4dda224ee9d3caa1bd0d0.mockapi.io/scores';
 
-        async function fetchHallOfFame() {
-            const hofContainer = document.getElementById('landing-hof');
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                
-                if (!data || data.length === 0) {
-                    hofContainer.innerHTML = `<div class="hof-item"><span>Aucun agent classé</span><span>--:--</span></div>`;
-                    return;
-                }
-
-                data.sort((a, b) => a.chrono.localeCompare(b.chrono));
-                const top5 = data.slice(0, 5);
-
-                hofContainer.innerHTML = top5.map((item, index) => `
-                    <div class="hof-item">
-                        <span>#${index + 1} ${item.pseudo}</span>
-                        <span>${item.chrono}</span>
-                    </div>
-                `).join('');
-            } catch (err) {
-                hofContainer.innerHTML = `<div class="hof-item"><span>Erreur de connexion serveur</span><span>--:--</span></div>`;
-            }
-        }
-
         async function saveScoreToCloud(pseudo, chrono) {
             try {
                 await fetch(API_URL, {
@@ -198,8 +184,6 @@
                 console.error("Erreur d'enregistrement", err);
             }
         }
-
-        window.onload = fetchHallOfFame;
 
         function switchToApp() {
             document.getElementById('view-landing').classList.add('hidden');
@@ -215,7 +199,6 @@
         function switchToLanding() {
             document.getElementById('view-app').classList.add('hidden');
             document.getElementById('view-landing').classList.remove('hidden');
-            fetchHallOfFame();
         }
 
         function showToast(msg, isSuccess = false) {
