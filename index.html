@@ -133,7 +133,7 @@
         <div class="territory-selector">
             <div class="territory-label">📍 Sélection du secteur d'expérimentation</div>
             <select class="territory-select" id="select-territory">
-                <option value="rians">Rians (18) — Mission Parvis & Usine [Live]</option>
+                <option value="rians">Rians (18) — Mission avec Détour Optionnel [Live]</option>
             </select>
         </div>
 
@@ -188,7 +188,7 @@
 
             <div class="form-group">
                 <label class="form-label">Message / Précisions sur votre projet</label>
-                <textarea id="demo-message" placeholder="ex: Nous souhaitons un parcours de 6 étapes pour notre centre-ville historique..." class="form-input" style="height: 80px; resize: none; font-family: var(--font-main);"></textarea>
+                <textarea id="demo-message" placeholder="ex: Nous souhaitons intégrer l'étang en option..." class="form-input" style="height: 80px; resize: none; font-family: var(--font-main);"></textarea>
             </div>
 
             <button class="btn-primary" onclick="submitDemoRequest()">
@@ -211,7 +211,7 @@
             </div>
 
             <div class="metrics-row">
-                <div class="metric-card"><div class="metric-label">Progression</div><div class="metric-value" id="metric-progress">0 / 6</div><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div></div>
+                <div class="metric-card"><div class="metric-label">Progression</div><div class="metric-value" id="metric-progress">0 / 8</div><div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div></div>
                 <div class="metric-card"><div class="metric-label">Chrono</div><div class="metric-value" id="metric-timer">00:00</div></div>
                 <div class="metric-card"><div class="metric-label">Radar Cible</div><div class="metric-value" id="metric-gps">340 m</div></div>
             </div>
@@ -236,7 +236,7 @@
 
     <script>
         const SCORES_API_URL = "https://6ab4dda224ee9d3caa1bd0d0.mockapi.io/scores";
-        const FORMSPREE_URL = "https://formspree.io/f/xrpblzql";
+        const FORMSPREE_URL = "https://formspree.io/f/VOTRE_ENDPOINT_FORMSPREE";
 
         function switchToApp() {
             document.getElementById('view-landing').classList.add('hidden');
@@ -283,7 +283,6 @@
             } catch (e) { showToast("Erreur de publication", false); }
         }
 
-        // ENVOI FORMULAIRE AVEC LE MESSAGE PERSONNALISÉ
         async function submitDemoRequest() {
             const org = document.getElementById('demo-org').value.trim();
             const emailInput = document.getElementById('demo-email').value.trim();
@@ -344,20 +343,24 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
+        // MISSION AVEC ÉTAPE 7 OPTIONNELLE ET ENIGME1.MP3 EN LOCAL (MÊME REPO)
         const mission = [
-            { 
-                id: 1, 
-                nom: "Étape 1 : Parvis Saint-Christophe", 
-                reponse: "CLOCHE", 
-                description: "Rejoins le parvis. Intercepte l'enregistrement audio crypté et saisis le mot-clé d'accès.", 
-                hasAudio: true,
-                msgSucces: "Canal décodé !" 
-            },
+            { id: 1, nom: "Étape 1 : Parvis Saint-Christophe", reponse: "CLOCHE", description: "Rejoins le parvis. Intercepte l'enregistrement audio crypté et saisis le mot-clé d'accès.", hasAudio: true, msgSucces: "Canal décodé !" },
             { id: 2, nom: "Étape 2 : Le Pont de l'Ouatier", reponse: "OUATIER", description: "Traverse le pont de manière furtive.", hasAudio: false, msgSucces: "Traversée réussie !" },
             { id: 3, nom: "Étape 3 : Serveur de la Mairie", reponse: "1842", description: "Entre le code d'accès historique.", hasAudio: false, msgSucces: "Accès accordé !" },
             { id: 4, nom: "Étape 4 : Les Grilles du Cimetière", reponse: "FER", description: "Quel métal compose la structure ?", hasAudio: false, msgSucces: "Fréquence synchronisée !" },
             { id: 5, nom: "Étape 5 : Le Stade de Football", reponse: "FOOTBALL", description: "Quel sport est pratiqué ici ?", hasAudio: false, msgSucces: "Projecteurs désactivés !" },
-            { id: 6, nom: "Étape 6 : Boutique Usine Rians", reponse: "TRIBALLAT", description: "Nom de la famille fondatrice historique.", hasAudio: false, msgSucces: "OPÉRATION VALIDÉE !" }
+            { id: 6, nom: "Étape 6 : Boutique Usine Rians", reponse: "TRIBALLAT", description: "Nom de la famille fondatrice historique.", hasAudio: false, msgSucces: "Zone usine validée !" },
+            { 
+                id: 7, 
+                nom: "Étape 7 [OPTIONNEL] : L'Étang de Rians", 
+                reponse: "ETANG", 
+                description: "Détour vers la zone humide (18220). Validez l'étape si vous visitez l'étang, ou contournez-la pour aller directement à l'extraction.", 
+                hasAudio: false, 
+                isOptional: true,
+                msgSucces: "Détour par l'étang validé !" 
+            },
+            { id: 8, nom: "Étape 8 : Retour au QG (Mairie / Église)", reponse: "MAIRIE", description: "Rejoins le point d'extraction final devant la mairie ou l'église pour clore l'opération.", hasAudio: false, msgSucces: "MISSION FINALE ACCOMPLIE !" }
         ];
 
         let state = { etape: 0, startTime: null, timerInterval: null, hintsUsed: 0, simulatedGps: false, distance: 340 };
@@ -390,15 +393,32 @@
                     <div class="audio-box">
                         <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--accent); margin-bottom:6px;">CANAL AUDIO CRYPTÉ (🔒 Portée max : 30m)</div>
                         <audio controls onplay="checkProximity(event)">
-                            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                            <source src="enigme1.mp3" type="audio/mpeg">
                             Votre navigateur ne supporte pas l'audio.
                         </audio>
                     </div>
                 `;
             }
             html += `<input type="text" id="input-code" placeholder="MOT-CLÉ" class="input-text">`;
+
+            // Bouton de contournement si l'étape est optionnelle
+            if (step.isOptional) {
+                html += `
+                    <button class="btn-secondary" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: var(--warning);" onclick="skipOptionalStep()">
+                        ⏩ Contourner l'étang (Aller directement au QG)
+                    </button>
+                `;
+            }
+
             document.getElementById('interactive-zone').innerHTML = html;
             document.getElementById('main-btn').innerText = "Valider l'Étape";
+        }
+
+        function skipOptionalStep() {
+            sounds.playBip(600, 'sine', 0.1);
+            showToast("Détour par l'étang contourné. Direction extraction finale !");
+            state.etape++;
+            renderEtape();
         }
 
         function checkProximity(event) {
