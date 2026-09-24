@@ -285,7 +285,7 @@
             margin-top: 4px;
         }
 
-        /* MODAL DEMANDE DE DÉMO */
+        /* MODAL STYLES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -359,7 +359,7 @@
             border-color: var(--border-focus);
         }
 
-        /* APP GAMEPLAY STYLES (INTÉGRÉ) */
+        /* APP GAMEPLAY STYLES */
         .app-shell {
             width: 100%;
             max-width: 440px;
@@ -766,10 +766,30 @@
                 <span>Lancer la Démo Live (Rians 18)</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
+            <button class="btn-secondary" onclick="openScoresModal()">
+                🏆 Consult la Fiche Scores International
+            </button>
             <button class="btn-secondary" onclick="openContactModal()">
                 ✉️ Demander une étude territoriale B2B
             </button>
             <div class="footer-note">Solution validée pour Offices de Tourisme & Collectivités.</div>
+        </div>
+    </div>
+
+    <!-- MODAL SCORES INTERNATIONAL -->
+    <div id="modal-scores" class="modal-overlay hidden">
+        <div class="modal-card" style="max-width: 460px; max-height: 85vh; display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <div class="modal-title">🏆 Fiche Scores International</div>
+                <button class="close-btn" onclick="closeScoresModal()">&times;</button>
+            </div>
+            <p style="font-size:0.78rem; color:var(--text-secondary)">Classement mondial en temps réel des agents d'infiltration.</p>
+            <div id="scores-container" style="display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 50vh; padding-right: 4px; margin-top: 8px;">
+                <div style="text-align:center; padding:20px; color:var(--text-secondary)">Chargement...</div>
+            </div>
+            <button class="btn-secondary" onclick="fetchInternationalScores()" style="margin-top: auto;">
+                🔄 Actualiser le Classement
+            </button>
         </div>
     </div>
 
@@ -858,6 +878,8 @@
     </div>
 
     <script>
+        const SCORES_API_URL = "https://6ab4dda224ee9d3caa1bd0d0.mockapi.io/scores";
+
         function switchToApp() {
             document.getElementById('view-landing').classList.add('hidden');
             document.getElementById('view-app').classList.remove('hidden');
@@ -879,6 +901,80 @@
 
         function closeContactModal() {
             document.getElementById('modal-contact').classList.add('hidden');
+        }
+
+        function openScoresModal() {
+            document.getElementById('modal-scores').classList.remove('hidden');
+            fetchInternationalScores();
+        }
+
+        function closeScoresModal() {
+            document.getElementById('modal-scores').classList.add('hidden');
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, function(m) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+            });
+        }
+
+        async function fetchInternationalScores() {
+            const container = document.getElementById('scores-container');
+            container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-secondary)">Chargement de la Fiche Scores...</div>';
+            try {
+                const res = await fetch(SCORES_API_URL);
+                if (!res.ok) throw new Error("Erreur de récupération des scores");
+                const scores = await res.json();
+                
+                scores.sort((a, b) => (a.timeSeconds || 99999) - (b.timeSeconds || 99999));
+
+                if (scores.length === 0) {
+                    container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-secondary)">Aucun score enregistré pour le moment.</div>';
+                    return;
+                }
+
+                container.innerHTML = scores.map((s, idx) => `
+                    <div style="background:var(--surface-card); border:1px solid var(--border); padding:10px 14px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span style="font-family:var(--font-mono); font-weight:800; color:var(--accent); font-size:0.9rem;">#${idx + 1}</span>
+                            <div>
+                                <div style="font-weight:700; font-size:0.88rem; color:#fff;">${escapeHtml(s.pseudo || 'Agent Anonyme')}</div>
+                                <div style="font-size:0.7rem; color:var(--text-secondary);">${escapeHtml(s.territory || 'Rians (18)')} • ${escapeHtml(s.grade || 'Agent')}</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-family:var(--font-mono); font-weight:700; color:var(--accent); font-size:0.95rem;">⏱️ ${escapeHtml(s.chrono || '--:--')}</div>
+                            <div style="font-size:0.65rem; color:var(--text-secondary);">${s.hints !== undefined ? s.hints + ' indice(s)' : ''}</div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--danger)">Impossible d\'accéder aux scores internationaux.</div>';
+            }
+        }
+
+        async function submitAgentScore(pseudo, chrono, timeSeconds, hintsUsed, grade, territory) {
+            try {
+                const payload = {
+                    pseudo: pseudo || "Agent Inconnu",
+                    chrono: chrono,
+                    timeSeconds: timeSeconds,
+                    hints: hintsUsed,
+                    grade: grade,
+                    territory: territory,
+                    createdAt: new Date().toISOString()
+                };
+                const res = await fetch(SCORES_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) throw new Error("Erreur de sauvegarde");
+                showToast("Score publié au niveau international !", true);
+                openScoresModal();
+            } catch (e) {
+                showToast("Erreur lors de la publication du score", false);
+            }
         }
 
         function submitDemoRequest() {
@@ -1012,7 +1108,7 @@
                 id: 2, nom: "Étape 2 : Le Pont de l'Ouatier", lat: 47.1859, lng: 2.6152, type: "stealth_walk",
                 description: "Traverse le pont en visant une marche régulière. La jauge ne doit pas saturer.",
                 msgSucces: "Traversée furtive réussie ! Remonte vers la Mairie.",
-                indice: "Déplace-toi lentement en maintenant ton appareil le plus fixe possible."
+                indice: "Déplace-toi lentement en maintaining ton appareil le plus fixe possible."
             },
             {
                 id: 3, nom: "Étape 3 : Serveur de la Mairie", lat: 47.1848, lng: 2.6133, type: "digicode", reponse: "1842",
@@ -1152,7 +1248,6 @@
                 initQTEGame();
             }
 
-            // Bouton Indice
             const hintBtn = document.createElement('button');
             hintBtn.className = 'btn-hint-trigger';
             hintBtn.innerHTML = '💡 Demander un indice tactique';
@@ -1257,6 +1352,7 @@
 
             if(state.etape >= mission.length) {
                 clearInterval(state.timerInterval);
+                const timeSeconds = Math.floor((Date.now() - state.startTime) / 1000);
                 const finalChrono = document.getElementById('metric-timer').innerText;
                 const grade = state.hintsUsed === 0 ? "Agent S — Mamba" : (state.hintsUsed <= 2 ? "Agent A — Renard" : "Agent B — Ombre");
                 
@@ -1265,8 +1361,14 @@
                     <strong>Rapport d'Infiltration B2B validé !</strong><br><br>
                     ⏱️ Chrono final : <strong>${finalChrono}</strong><br>
                     💡 Indices sollicités : <strong>${state.hintsUsed}</strong><br>
-                    🎖️ Rating d'Agent : <strong>${grade}</strong><br>
-                    📍 Secteur déverrouillé : <em>Pionnier de Rians (18)</em>
+                    🎖️ Rating d'Agent : <strong>${grade}</strong><br><br>
+                    <div style="background:rgba(7,10,20,0.8); border:1px solid var(--border); padding:12px; border-radius:10px;">
+                        <label style="font-size:0.75rem; color:var(--text-secondary); display:block; margin-bottom:6px;">Inscrire ton pseudonyme au classement mondial :</label>
+                        <input type="text" id="agent-pseudo" placeholder="ex: Spectre_18" class="form-input" style="margin-bottom:10px;">
+                        <button class="btn-secondary" onclick="submitAgentScore(document.getElementById('agent-pseudo').value, '${finalChrono}', ${timeSeconds}, ${state.hintsUsed}, '${grade}', 'Rians (18)')">
+                            📤 Publier mon Score International
+                        </button>
+                    </div>
                 `;
                 document.getElementById('main-btn').innerText = "Retour à l'Accueil B2B";
                 document.getElementById('main-btn').className = "btn-action btn-success";
